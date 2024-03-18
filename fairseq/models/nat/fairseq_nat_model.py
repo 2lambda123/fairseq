@@ -6,6 +6,7 @@
 import math
 
 import torch
+
 from fairseq.models.transformer import (
     TransformerDecoder,
     TransformerEncoder,

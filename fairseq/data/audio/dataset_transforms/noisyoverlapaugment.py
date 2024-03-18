@@ -6,9 +6,7 @@ from fairseq.data.audio.dataset_transforms import (
     AudioDatasetTransform,
     register_audio_dataset_transform,
 )
-from fairseq.data.audio.waveform_transforms.noiseaugment import (
-    NoiseAugmentTransform,
-)
+from fairseq.data.audio.waveform_transforms.noiseaugment import NoiseAugmentTransform
 
 _DEFAULTS = {
     "rate": 0.25,

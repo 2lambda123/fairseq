@@ -96,7 +96,7 @@ fairseq-generate \
 We use ``:`` to split multiple models. Note that, not all NAT models support ensembling for now.
 
 
-### Length-beam 
+### Length-beam
 For models that predict lengths before decoding (e.g. the vanilla NAT, Mask-Predict, etc), it is possible to improve the translation quality by varying the target lengths around the predicted value, and translating the same example multiple times in parallel. We can select the best translation with the highest scores defined by your model's output.
 
 Note that, not all models support length beams. For models which dynamically change the lengths (e.g. *Insertion Transformer*, *Levenshtein Transformer*), the same trick does not apply.
@@ -104,7 +104,7 @@ Note that, not all models support length beams. For models which dynamically cha
 ### Re-ranking
 If the model generates multiple translations with length beam, we can also introduce an autoregressive model to rerank the translations considering scoring from an autoregressive model is much faster than decoding from that.
 
-For example, to generate translations with length beam and reranking, 
+For example, to generate translations with length beam and reranking,
 ```bash
 fairseq-generate \
     data-bin/wmt14_en_de_distill \
@@ -118,7 +118,7 @@ fairseq-generate \
     --beam 1 --remove-bpe \
     --print-step \
     --batch-size 100
-``` 
+```
 Note that we need to make sure the autoregressive model shares the same vocabulary as our target non-autoregressive model.
 
 

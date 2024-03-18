@@ -8,11 +8,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from fairseq import options, utils
-
 from fairseq.models import (
     FairseqEncoder,
-    FairseqIncrementalDecoder,
     FairseqEncoderDecoderModel,
+    FairseqIncrementalDecoder,
     register_model,
     register_model_architecture,
 )
@@ -315,9 +314,9 @@ class LSTMEncoder(FairseqEncoder):
         return {
             "sentemb": sentemb,
             "encoder_out": (x, final_hiddens, final_cells),
-            "encoder_padding_mask": encoder_padding_mask
-            if encoder_padding_mask.any()
-            else None,
+            "encoder_padding_mask": (
+                encoder_padding_mask if encoder_padding_mask.any() else None
+            ),
         }
 
     def reorder_encoder_out(self, encoder_out_dict, new_order):
@@ -372,9 +371,11 @@ class LSTMDecoder(FairseqIncrementalDecoder):
         self.layers = nn.ModuleList(
             [
                 LSTMCell(
-                    input_size=encoder_output_units + embed_dim + lang_embed_dim
-                    if layer == 0
-                    else hidden_size,
+                    input_size=(
+                        encoder_output_units + embed_dim + lang_embed_dim
+                        if layer == 0
+                        else hidden_size
+                    ),
                     hidden_size=hidden_size,
                 )
                 for layer in range(num_layers)

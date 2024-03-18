@@ -13,4 +13,3 @@ sbatch_args="$sbatch_args -o $dir/log/decode_sweep_%A.out"
 sbatch_args="$sbatch_args -e $dir/log/decode_sweep_%A.err"
 
 sbatch $sbatch_args examples/data2vec/scripts/multi/finetune_all_fair_local_lr.sh $dir
-

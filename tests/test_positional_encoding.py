@@ -1,8 +1,9 @@
 import unittest
 
-import torch
-from fairseq.modules import RelPositionalEncoding
 import numpy as np
+import torch
+
+from fairseq.modules import RelPositionalEncoding
 
 
 class TestRelPositionalEncoding(unittest.TestCase):

@@ -67,4 +67,3 @@ model:
   encoder_attention_heads: 16
 
   feature_grad_mult: 1.0
-

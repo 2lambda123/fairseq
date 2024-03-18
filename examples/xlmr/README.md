@@ -14,11 +14,11 @@ https://arxiv.org/pdf/2105.00572.pdf
 
  Language | Language|Language |Language | Language
 ---|---|---|---|---
-Afrikaans | Albanian | Amharic | Arabic | Armenian 
-Assamese | Azerbaijani | Basque | Belarusian | Bengali 
-Bengali Romanize | Bosnian | Breton | Bulgarian | Burmese 
-Burmese zawgyi font | Catalan | Chinese (Simplified) | Chinese (Traditional) | Croatian 
-Czech | Danish | Dutch | English | Esperanto 
+Afrikaans | Albanian | Amharic | Arabic | Armenian
+Assamese | Azerbaijani | Basque | Belarusian | Bengali
+Bengali Romanize | Bosnian | Breton | Bulgarian | Burmese
+Burmese zawgyi font | Catalan | Chinese (Simplified) | Chinese (Traditional) | Croatian
+Czech | Danish | Dutch | English | Esperanto
 Estonian | Filipino | Finnish | French | Galician
 Georgian | German | Greek | Gujarati | Hausa
 Hebrew | Hindi | Hindi Romanize | Hungarian | Icelandic
@@ -63,7 +63,7 @@ Model | average | en | es | de | ar | hi | vi | zh
 `mBERT` | 57.7 / 41.6 | 77.7 / 65.2 | 64.3 / 46.6 | 57.9 / 44.3 | 45.7 / 29.8| 43.8 / 29.7 | 57.1 / 38.6 | 57.5 / 37.3
 `xlmr.large` | 70.7 / 52.7 | 80.6 / 67.8 | 74.1 / 56.0 | 68.5 / 53.6 | 63.1 / 43.5 | 69.2 / 51.6 | 71.3 / 50.9 | 68.0 / 45.4
 `xlmr.xl` | 73.4 / 55.3 | 85.1 / 72.6 | 66.7 / 46.2 | 70.5 / 55.5 | 74.3 / 56.9 | 72.2 / 54.7 | 74.4 / 52.9 | 70.9 / 48.5
-`xlmr.xxl` | 74.8 / 56.6 | 85.5 / 72.4 | 68.6 / 48.4 | 72.7 / 57.8 | 75.4 / 57.6 | 73.7 / 55.8 | 76.0 / 55.0 | 71.7 / 48.9 
+`xlmr.xxl` | 74.8 / 56.6 | 85.5 / 72.4 | 68.6 / 48.4 | 72.7 / 57.8 | 75.4 / 57.6 | 73.7 / 55.8 | 76.0 / 55.0 | 71.7 / 48.9
 
 
 ## Example usage

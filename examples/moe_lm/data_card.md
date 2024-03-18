@@ -19,7 +19,7 @@ No.
 ## Composition
 
 * **What do the instances that comprise the dataset represent (e.g., documents, photos, people, countries)? Are there multiple types of instances (e.g., movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description.**
-The instances are textual documents. The overall dataset is composed from a union of the following datasets - 
+The instances are textual documents. The overall dataset is composed from a union of the following datasets -
     * BookCorpus (Zhu et al., 2019) consists of more than 10K unpublished books (4GB);
     * English Wikipedia, excluding lists, tables and headers (12GB);
     * CC-News (Nagel,2016) contains 63 million English news articles crawled between September 2016 and February 2019 (76GB);
@@ -45,7 +45,7 @@ No.
 * **Are relationships between individual instances made explicit (e.g., users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.**
 There are no explicit relationships between individual instances.
 
-* **Are there recommended data splits (e.g., training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.** 
+* **Are there recommended data splits (e.g., training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.**
 We hold out a random validation set of approximately 150MB from the pretraining data, sampled proportionally to each dataset's size in the pretraining corpus.
 
 * **Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description.**
@@ -96,7 +96,7 @@ Different parts of the dataset were mined over different time periods.
 2. The English CC-100 dataset was extracted from CommonCrawl snapshots between January 2018 and December 2018.
 
 * **Were any ethical review processes conducted (e.g., by an institutional review board)? If so, please provide a description of these review processes, including the outcomes, as well as a link or other access point to any supporting documentation.**
-No. 
+No.
 
 * **Does the dataset relate to people? If not, you may skip the remainder of the questions in this section.**
 No.
@@ -125,7 +125,7 @@ No
 
 * **Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remainder of the questions in this section.**
 The component datasets went through standard cleaning and re-formatting practices, including removing repetitive/non informative text like "Chapter One", or "This ebook by Project Gutenberg".
-    
+
 * **Was the “raw” data saved in addition to the preprocessed/cleaned/labeled data (e.g., to support unanticipated future uses)? If so, please provide a link or other access point to the “raw” data.**
 The "raw" component datasets is publicly available in their respective locations (more details can be seen in the respective papers linked in references).
 
@@ -160,7 +160,7 @@ No.
 
 
 * **Will the dataset be distributed to third parties outside of the entity (e.g., company, institution, organization) on behalf of which the dataset was created? If so, please provide a description.**
-No. 
+No.
 
 * **How will the dataset will be distributed (e.g., tarball on website, API, GitHub)? Does the dataset have a digital object identifier (DOI)?**
 N/A
@@ -218,4 +218,3 @@ Aaron Gokaslan and Vanya Cohen. 2019. Openwebtext corpus. http://web.archive.org
 Trieu H Trinh and Quoc V Le. 2018. A simple method for commonsense reasoning. arXiv preprint arXiv:1806.02847.
 
 Guillaume Wenzek, Marie-Anne Lachaux, Alexis Conneau, Vishrav Chaudhary, Francisco Guzmán, Armand Joulin, and Edouard Grave. 2020. CCNet: Extracting high quality monolingual datasets from web crawl data. In Proceedings of the 12th Language Resources and Evaluation Conference, pages 4003–4012, Marseille, France. European Language Resources Association.
-

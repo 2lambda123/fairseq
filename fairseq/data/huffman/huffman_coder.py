@@ -9,6 +9,7 @@ from collections import Counter, deque
 from dataclasses import dataclass
 
 from bitarray import bitarray, util
+
 from fairseq.data import Dictionary
 
 # basically we have to write to addressable bytes for the memory mapped
@@ -196,7 +197,7 @@ class HuffmanCodeBuilder:
 
     def to_file(self, filename, sep="\t"):
         with open(filename, "w", encoding="utf-8") as output:
-            for (tok, cnt) in self.symbols.most_common():
+            for tok, cnt in self.symbols.most_common():
                 output.write(f"{tok}{sep}{cnt}\n")
 
     def _smallest(self, q1: deque, q2: deque) -> HuffmanNode:

@@ -7,10 +7,10 @@ import contextlib
 import logging
 
 import numpy as np
+
 from fairseq.data.data_utils import numpy_seed
 
 from . import BaseWrapperDataset
-
 
 logger = logging.getLogger(__name__)
 

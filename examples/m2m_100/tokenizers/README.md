@@ -15,4 +15,4 @@ sacrebleu -tok 'none' ref < hyp
 ## Installation
 
 Tools needed for all the languages except Arabic can be installed by running install_dependencies.sh
-If you want to evaluate Arabic models, please follow the instructions provided here: http://alt.qcri.org/tools/arabic-normalizer/ to install 
+If you want to evaluate Arabic models, please follow the instructions provided here: http://alt.qcri.org/tools/arabic-normalizer/ to install

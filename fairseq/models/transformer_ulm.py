@@ -5,11 +5,12 @@
 
 
 from dataclasses import dataclass, field
-from fairseq.models.fairseq_decoder import FairseqDecoder
+from typing import Any, Dict, List, Optional
+
 import numpy as np
-from typing import Optional, Dict, Any, List
 import torch
-from torch import nn
+from torch import Tensor, nn
+
 from fairseq.data.data_utils import compute_mask_indices
 from fairseq.dataclass import ChoiceEnum
 from fairseq.models import (
@@ -17,11 +18,10 @@ from fairseq.models import (
     register_model,
     register_model_architecture,
 )
-from fairseq.tasks.speech_ulm_task import SpeechUnitLanguageModelingTask
-from fairseq.models.transformer import Embedding, TransformerDecoder, Linear
+from fairseq.models.fairseq_decoder import FairseqDecoder
+from fairseq.models.transformer import Embedding, Linear, TransformerDecoder
 from fairseq.models.transformer_lm import TransformerLanguageModelConfig
-from torch import Tensor
-
+from fairseq.tasks.speech_ulm_task import SpeechUnitLanguageModelingTask
 
 DEFAULT_MAX_TARGET_POSITIONS = 1024
 MASKING_DISTRIBUTION_CHOICES = ChoiceEnum(["static", "uniform", "normal", "poisson"])
@@ -358,15 +358,19 @@ class MultiStreamTransformerDecoder(TransformerDecoder):
 
             x, layer_attn, _ = layer(
                 x,
-                encoder_out["encoder_out"][0]
-                if (encoder_out is not None and len(encoder_out["encoder_out"]) > 0)
-                else None,
-                encoder_out["encoder_padding_mask"][0]
-                if (
-                    encoder_out is not None
-                    and len(encoder_out["encoder_padding_mask"]) > 0
-                )
-                else None,
+                (
+                    encoder_out["encoder_out"][0]
+                    if (encoder_out is not None and len(encoder_out["encoder_out"]) > 0)
+                    else None
+                ),
+                (
+                    encoder_out["encoder_padding_mask"][0]
+                    if (
+                        encoder_out is not None
+                        and len(encoder_out["encoder_padding_mask"]) > 0
+                    )
+                    else None
+                ),
                 incremental_state,
                 self_attn_mask=self_attn_mask,
                 self_attn_padding_mask=self_attn_padding_mask,

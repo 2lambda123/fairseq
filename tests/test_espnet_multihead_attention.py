@@ -1,6 +1,8 @@
-import torch
-import numpy as np
 import unittest
+
+import numpy as np
+import torch
+
 from fairseq.modules import (
     ESPNETMultiHeadedAttention,
     RelPositionMultiHeadedAttention,

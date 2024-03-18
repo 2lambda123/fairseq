@@ -11,11 +11,11 @@ import random
 import sys
 import tempfile
 import unittest
-from packaging import version
 from io import StringIO
 from typing import Dict, List
 
 import torch
+from packaging import version
 
 from fairseq import options
 from fairseq_cli import eval_lm, train

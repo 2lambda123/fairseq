@@ -27,4 +27,3 @@ for x in $dec_splits; do
   utils/fix_data_dir.sh $dec_data_dir/$x
   echo "WER on $x is" $(compute-wer ark:$wrd_data_dir/${x}_gt/text ark:$dec_data_dir/$x/text | cut -d" " -f2-)
 done
-

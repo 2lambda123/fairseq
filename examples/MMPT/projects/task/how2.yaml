@@ -19,4 +19,3 @@ fairseq:
     save_interval_updates: 1024
     keep_interval_updates: 2
     keep_last_epochs: 30
-

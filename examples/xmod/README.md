@@ -102,11 +102,11 @@ DATA='multinli_1.0/fairseq/bin'
 # Load model
 model = XMODModel.from_pretrained(
             model_name_or_path=MODEL,
-            checkpoint_file='checkpoint_best.pt', 
-            data_name_or_path=DATA, 
-            suffix='', 
-            criterion='cross_entropy', 
-            bpe='sentencepiece',  
+            checkpoint_file='checkpoint_best.pt',
+            data_name_or_path=DATA,
+            suffix='',
+            criterion='cross_entropy',
+            bpe='sentencepiece',
             sentencepiece_model=DATA+'/input0/sentencepiece.bpe.model')
 model = model.eval();  # disable dropout
 model = model.half();  # use FP16
@@ -143,7 +143,7 @@ predict(
 ```bibtex
 @misc{pfeiffer2022xmod,
   doi = {10.48550/ARXIV.2205.06266},
-  url = {https://arxiv.org/abs/2205.06266},    
+  url = {https://arxiv.org/abs/2205.06266},
   title = {Lifting the Curse of Multilinguality by Pre-training Modular Transformers},
   publisher = {arXiv},
   year = {2022},

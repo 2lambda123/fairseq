@@ -1,4 +1,5 @@
 from typing import List
+
 import numpy as np
 
 from fairseq.data.audio.dataset_transforms import (

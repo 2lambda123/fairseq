@@ -8,6 +8,7 @@ import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
 from fairseq import utils
 from fairseq.model_parallel.models.pipeline_parallel_transformer.layers import (
     Embedding,
@@ -33,7 +34,6 @@ from fairseq.models.transformer import (
 )
 from fairseq.modules import SinusoidalPositionalEmbedding
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -53,8 +53,9 @@ def import_pipe():
         from torch.distributed.pipeline.sync.utils import partition_model
 
         global partition_model
-        from torch.distributed import rpc
         import tempfile
+
+        from torch.distributed import rpc
 
         TORCH_PIPE = True
         # Initialize single process RPC agent since TORCH_PIPE requires
@@ -750,9 +751,9 @@ class TransformerDecoder(FairseqDecoder):
                 for m in ("weight", "bias"):
                     k = "{}.layers.{}.layer_norms.{}.{}".format(name, i, old, m)
                     if k in state_dict:
-                        state_dict[
-                            "{}.layers.{}.{}.{}".format(name, i, new, m)
-                        ] = state_dict[k]
+                        state_dict["{}.layers.{}.{}.{}".format(name, i, new, m)] = (
+                            state_dict[k]
+                        )
                         del state_dict[k]
 
         version_key = "{}.version".format(name)

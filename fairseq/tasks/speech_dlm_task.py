@@ -5,12 +5,14 @@
 
 import logging
 import os
+from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Optional
-from collections import OrderedDict
 
 import numpy as np
 import torch
+from omegaconf import II
+
 from fairseq import utils
 from fairseq.data import (
     AppendTokenDataset,
@@ -32,8 +34,6 @@ from fairseq.data.indexed_dataset import get_available_dataset_impl
 from fairseq.data.shorten_dataset import maybe_shorten_dataset
 from fairseq.dataclass import ChoiceEnum, FairseqDataclass
 from fairseq.tasks import LegacyFairseqTask, register_task
-from omegaconf import II
-
 
 SAMPLE_BREAK_MODE_CHOICES = ChoiceEnum(["none", "complete", "complete_doc", "eos"])
 SHORTEN_METHOD_CHOICES = ChoiceEnum(["none", "truncate", "random_crop"])
@@ -516,8 +516,8 @@ class SpeechDLMTask(LegacyFairseqTask):
     def build_generator(self, models, args, extra_gen_cls_kwargs=None):
 
         from fairseq.models.speech_dlm.sequence_generator import (
-            multichannel_search,
             MultichannelSequenceGenerator,
+            multichannel_search,
         )
 
         # Choose search strategy. Defaults to Beam Search.

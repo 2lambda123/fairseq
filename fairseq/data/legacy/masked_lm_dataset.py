@@ -8,6 +8,7 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 import torch
+
 from fairseq.data import Dictionary, FairseqDataset, data_utils
 from fairseq.data.concat_dataset import ConcatDataset
 from fairseq.data.legacy.block_pair_dataset import BlockPairDataset
@@ -252,9 +253,11 @@ class MaskedLMDataset(FairseqDataset):
                 "segment_labels": merge("segment_labels"),
             },
             "lm_target": merge("lm_target"),
-            "sentence_target": torch.LongTensor([s["sentence_target"] for s in samples])
-            if self.has_pairs
-            else None,
+            "sentence_target": (
+                torch.LongTensor([s["sentence_target"] for s in samples])
+                if self.has_pairs
+                else None
+            ),
             "nsentences": len(samples),
         }
 

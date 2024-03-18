@@ -2,9 +2,9 @@
 
 In order to create a new release:
 
-1. Navigate to the [Fairseq Workflows](https://github.com/facebookresearch/fairseq/actions) and find the one named _Fairseq Release_. 
+1. Navigate to the [Fairseq Workflows](https://github.com/facebookresearch/fairseq/actions) and find the one named _Fairseq Release_.
 
-2. Under _Run Workflow_ choose the branch `main` and for _Release Type_ enter either `major`, `minor`, or `patch`.  
+2. Under _Run Workflow_ choose the branch `main` and for _Release Type_ enter either `major`, `minor`, or `patch`.
 
 3. A branch named `$new_version-release` will be created where the `version.txt` file is updated. Merge those changes into `main`.
 

@@ -7,11 +7,12 @@ import math
 from dataclasses import dataclass, field
 
 import torch
+from omegaconf import II
+
 from fairseq import utils
-from fairseq.logging import metrics
 from fairseq.criterions import FairseqCriterion, register_criterion
 from fairseq.dataclass import FairseqDataclass
-from omegaconf import II
+from fairseq.logging import metrics
 
 
 @dataclass
@@ -151,11 +152,11 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
             metrics.log_scalar("n_correct", n_correct)
             metrics.log_derived(
                 "accuracy",
-                lambda meters: round(
-                    meters["n_correct"].sum * 100.0 / meters["total"].sum, 3
-                )
-                if meters["total"].sum > 0
-                else float("nan"),
+                lambda meters: (
+                    round(meters["n_correct"].sum * 100.0 / meters["total"].sum, 3)
+                    if meters["total"].sum > 0
+                    else float("nan")
+                ),
             )
 
     @staticmethod

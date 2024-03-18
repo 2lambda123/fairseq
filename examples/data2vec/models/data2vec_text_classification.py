@@ -7,24 +7,19 @@
 # https://github.com/microsoft/unilm/tree/master/beit
 
 import logging
-
 from dataclasses import dataclass
 from typing import Any
-
-from omegaconf import II, MISSING
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from omegaconf import II, MISSING
 
+from examples.data2vec.data.modality import Modality
 from fairseq import checkpoint_utils, tasks
-
 from fairseq.dataclass import FairseqDataclass
 from fairseq.models import BaseFairseqModel, register_model
 from fairseq.models.roberta.model import RobertaClassificationHead
-
-from examples.data2vec.data.modality import Modality
-
 
 logger = logging.getLogger(__name__)
 
@@ -75,14 +70,9 @@ class Data2VecTextClassificationModel(BaseFairseqModel):
 
         self.classification_heads = nn.ModuleDict()
 
-
     def load_model_weights(self, state, model, cfg):
         for k in list(state["model"].keys()):
-            if (
-                k.startswith("shared_decoder") or
-                k.startswith("_ema") or
-                "decoder" in k
-            ):
+            if k.startswith("shared_decoder") or k.startswith("_ema") or "decoder" in k:
                 logger.info(f"Deleting {k} from checkpoint")
                 del state["model"][k]
         model.load_state_dict(state["model"], strict=True)
@@ -135,7 +125,7 @@ class Data2VecTextClassificationModel(BaseFairseqModel):
             padding_mask=padding_mask,
             mask=False,
             features_only=features_only,
-            remove_extra_tokens=remove_extra_tokens
+            remove_extra_tokens=remove_extra_tokens,
         )
         logits = self.classification_heads[classification_head_name](encoder_out["x"])
         return logits, encoder_out

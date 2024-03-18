@@ -48,21 +48,21 @@ assert '\n' not in lm.decode(tokens)  # no newlines were encoded
 
 ### Example (COPA)
 
-The following snippet show how to evaluate our models on the Choice of Plausible Alternatives (COPA) task, using examples in English, Chinese and Hindi. 
+The following snippet show how to evaluate our models on the Choice of Plausible Alternatives (COPA) task, using examples in English, Chinese and Hindi.
 
 ```python
 data_samples = {
     'en': [
         {
-            "premise": "I wanted to conserve energy.", 
-            "choice1": "I swept the floor in the unoccupied room.", 
+            "premise": "I wanted to conserve energy.",
+            "choice1": "I swept the floor in the unoccupied room.",
             "choice2": "I shut off the light in the unoccupied room.",
             "question": "effect",
             "label": "1"
         },
         {
             "premise": "The flame on the candle went out.",
-            "choice1": "I blew on the wick.", 
+            "choice1": "I blew on the wick.",
             "choice2": "I put a match to the wick.",
             "question": "cause",
             "label": "0"
@@ -70,15 +70,15 @@ data_samples = {
     ],
     'zh': [
         {
-            "premise": "我想节约能源。", 
-            "choice1": "我在空着的房间里扫了地板。", 
+            "premise": "我想节约能源。",
+            "choice1": "我在空着的房间里扫了地板。",
             "choice2": "我把空房间里的灯关了。",
             "question": "effect",
             "label": "1"
         },
         {
             "premise": "蜡烛上的火焰熄灭了。",
-            "choice1": "我吹灭了灯芯。", 
+            "choice1": "我吹灭了灯芯。",
             "choice2": "我把一根火柴放在灯芯上。",
             "question": "cause",
             "label": "0"
@@ -86,15 +86,15 @@ data_samples = {
     ],
     'hi': [
         {
-            "premise": "M te vle konsève enèji.", 
-            "choice1": "Mwen te fin baleye chanm lib la.", 
+            "premise": "M te vle konsève enèji.",
+            "choice1": "Mwen te fin baleye chanm lib la.",
             "choice2": "Mwen te femen limyè nan chanm lib la.",
             "question": "effect",
             "label": "1"
         },
         {
             "premise": "Flam bouji a te etenn.",
-            "choice1": "Mwen te soufle bouji a.", 
+            "choice1": "Mwen te soufle bouji a.",
             "choice2": "Mwen te limen mèch bouji a.",
             "question": "cause",
             "label": "0"
@@ -102,7 +102,7 @@ data_samples = {
     ]
 }
 ```
-In this example, we format the examples use the non-verbal prompts `{premise}\n{choice1}` and `{premise}\n{choice2}`, which are shared by all three languages. 
+In this example, we format the examples use the non-verbal prompts `{premise}\n{choice1}` and `{premise}\n{choice2}`, which are shared by all three languages.
 ```python
 from fairseq.models.transformer_lm import TransformerLanguageModel
 
@@ -116,7 +116,7 @@ def get_logprobs(prompt):
     import re
     prompt = re.sub('\n+' , '\n', prompt)  # collapse repeated newlines, which indicate separate documents
     return lm.score(prompt, replace_newlines_with_eos=True)['positional_scores']
-    
+
 # Zero-shot evaluation for the Choice of Plausible Alternatives (COPA) task.
 # A return value of 0 indicates that the first alternative is more plausible,
 # while 1 indicates that the second alternative is more plausible.
@@ -124,12 +124,12 @@ def COPA_eval(prompt, alternative1, alternative2):
     lprob1 = get_logprobs(prompt + "\n" + alternative1).sum()
     lprob2 = get_logprobs(prompt + "\n" + alternative2).sum()
     return 0 if lprob1 > lprob2 else 1
-    
+
 for lang in ['en', 'zh', 'hi']:
     for idx, example in enumerate(data_samples[lang]):
         predict = COPA_eval(example["premise"], example["choice1"], example["choice2"])
         print(f'{lang}-{idx}', predict, example['label'])
-        
+
 # en-0 1 1
 # en-1 0 0
 # zh-0 1 1
@@ -140,13 +140,13 @@ for lang in ['en', 'zh', 'hi']:
 
 ## XStoryCloze
 
-We release XStoryCloze, a new multilingual dataset intended for few-shot evaluation, alongside this paper. XStoryCloze consists of professional translation of the validation split of the [English StoryCloze dataset](https://cs.rochester.edu/nlp/rocstories/) (Spring 2016 version) to 10 other languages. It is opensourced under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode), the same license as the English StoryCloze. 
+We release XStoryCloze, a new multilingual dataset intended for few-shot evaluation, alongside this paper. XStoryCloze consists of professional translation of the validation split of the [English StoryCloze dataset](https://cs.rochester.edu/nlp/rocstories/) (Spring 2016 version) to 10 other languages. It is opensourced under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode), the same license as the English StoryCloze.
 
-You can download the dataset via [this link](https://dl.fbaipublicfiles.com/xstorycloze.zip). 
+You can download the dataset via [this link](https://dl.fbaipublicfiles.com/xstorycloze.zip).
 
 Language | ar | es | eu | hi | id | my | ru | sw | te | zh
 ---|---|---|---|---|---|---|---|---|---|---
-Train size | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360  
+Train size | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360 | 360
 Eval size | 1511 | 1511 | 1511 | 1511 | 1511 | 1511 | 1511 | 1511 | 1511 | 1511
 
 Please refer to [the dataset doc](XStoryCloze.md) for more information.

@@ -1,8 +1,8 @@
-import sys
 import argparse
-from tqdm import tqdm
-from build_emov_translation_manifests import dedup, remove_under_k
+import sys
 
+from build_emov_translation_manifests import dedup, remove_under_k
+from tqdm import tqdm
 
 if __name__ == "__main__":
     """
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     """
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("km", type=str, help="path to km file")
-    parser.add_argument("--dedup", action='store_true')
+    parser.add_argument("--dedup", action="store_true")
     parser.add_argument("--remove-under-k", type=int, default=0)
     parser.add_argument("--output", default=None)
     args = parser.parse_args()

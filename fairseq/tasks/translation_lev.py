@@ -4,7 +4,9 @@
 # LICENSE file in the root directory of this source tree.
 
 from dataclasses import dataclass, field
+
 import torch
+
 from fairseq import utils
 from fairseq.data import LanguagePairDataset
 from fairseq.dataclass import ChoiceEnum
@@ -15,7 +17,6 @@ from fairseq.tasks.translation import (
     load_langpair_dataset,
 )
 from fairseq.utils import new_arange
-
 
 NOISE_CHOICES = ChoiceEnum(["random_delete", "random_mask", "no_noise", "full_mask"])
 

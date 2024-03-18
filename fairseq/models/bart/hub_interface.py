@@ -11,11 +11,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from omegaconf import open_dict
+
 from fairseq import utils
 from fairseq.data import encoders
 from fairseq.hub_utils import GeneratorHubInterface
-from omegaconf import open_dict
-
 
 logger = logging.getLogger(__name__)
 

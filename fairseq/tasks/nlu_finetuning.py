@@ -5,25 +5,24 @@
 # the root directory of this source tree. An additional grant of patent rights
 # can be found in the PATENTS file in the same directory.
 
+import json
 import logging
 import os
-import torch
-import json
-
 from argparse import Namespace
 from dataclasses import dataclass, field
-from typing import Optional, Any
+from typing import Any, Optional
+
+import torch
 
 from fairseq.data import AddTargetDataset, Dictionary, encoders
-from fairseq.tasks.audio_pretraining import AudioPretrainingTask, AudioPretrainingConfig
+from fairseq.data.text_compressor import TextCompressionLevel, TextCompressor
 from fairseq.dataclass import FairseqDataclass
 from fairseq.dataclass.configs import GenerationConfig
-from fairseq.data.text_compressor import TextCompressor, TextCompressionLevel
+from fairseq.tasks.audio_pretraining import AudioPretrainingConfig, AudioPretrainingTask
 
-from . import register_task
 from .. import utils
 from ..logging import metrics
-
+from . import register_task
 
 logger = logging.getLogger(__name__)
 
@@ -408,20 +407,24 @@ class NLUFinetuningTask(AudioPretrainingTask):
             if num_chars > 0:
                 metrics.log_derived(
                     "uer",
-                    lambda meters: meters["_num_char_errors"].sum
-                    * 100.0
-                    / meters["_num_chars"].sum
-                    if meters["_num_chars"].sum > 0
-                    else float("nan"),
+                    lambda meters: (
+                        meters["_num_char_errors"].sum
+                        * 100.0
+                        / meters["_num_chars"].sum
+                        if meters["_num_chars"].sum > 0
+                        else float("nan")
+                    ),
                 )
             if num_words > 0:
                 metrics.log_derived(
                     "wer",
-                    lambda meters: meters["_num_word_errors"].sum
-                    * 100.0
-                    / meters["_num_words"].sum
-                    if meters["_num_words"].sum > 0
-                    else float("nan"),
+                    lambda meters: (
+                        meters["_num_word_errors"].sum
+                        * 100.0
+                        / meters["_num_words"].sum
+                        if meters["_num_words"].sum > 0
+                        else float("nan")
+                    ),
                 )
             if self.cfg.eval_wer_parse:
                 num_em_errors = sum(
@@ -440,20 +443,24 @@ class NLUFinetuningTask(AudioPretrainingTask):
                 if num_ems > 0:
                     metrics.log_derived(
                         "em_error",
-                        lambda meters: meters["_num_em_errors"].sum
-                        * 100.0
-                        / meters["_num_ems"].sum
-                        if meters["_num_ems"].sum > 0
-                        else float("nan"),
+                        lambda meters: (
+                            meters["_num_em_errors"].sum
+                            * 100.0
+                            / meters["_num_ems"].sum
+                            if meters["_num_ems"].sum > 0
+                            else float("nan")
+                        ),
                     )
                 if num_trees > 0:
                     metrics.log_derived(
                         "tree_error",
-                        lambda meters: meters["_num_tree_errors"].sum
-                        * 100.0
-                        / meters["_num_trees"].sum
-                        if meters["_num_trees"].sum > 0
-                        else float("nan"),
+                        lambda meters: (
+                            meters["_num_tree_errors"].sum
+                            * 100.0
+                            / meters["_num_trees"].sum
+                            if meters["_num_trees"].sum > 0
+                            else float("nan")
+                        ),
                     )
 
         if self.cfg.eval_bleu:

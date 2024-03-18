@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
 
 from fairseq import utils
 from fairseq.models import (
@@ -18,9 +19,9 @@ from fairseq.models import (
     register_model,
     register_model_architecture,
 )
+from fairseq.modules import AdaptiveSoftmax
+from fairseq.modules import DynamicConv_scripatable as DynamicConv
 from fairseq.modules import (
-    AdaptiveSoftmax,
-    DynamicConv_scripatable as DynamicConv,
     FairseqDropout,
     LayerNorm,
     LightweightConv,
@@ -28,7 +29,6 @@ from fairseq.modules import (
     PositionalEmbedding,
 )
 from fairseq.utils import safe_hasattr
-from torch import Tensor
 
 
 @register_model("lightconv")
