@@ -5,18 +5,15 @@
 
 
 import logging
+import os
+from typing import Callable, Optional, Set
 
 import numpy as np
-import os
-from typing import Optional, Callable, Set
-
 import torch
-
 from torchvision.datasets.vision import VisionDataset
 from torchvision.transforms import ToTensor
 
 from fairseq.data import FairseqDataset
-
 
 logger = logging.getLogger(__name__)
 

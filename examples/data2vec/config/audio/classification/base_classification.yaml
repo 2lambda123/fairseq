@@ -67,4 +67,3 @@ model:
   label_mixup: true
   source_mixup: 0.5
   prediction_mode: lin_softmax # scratch average_sigmoid
-

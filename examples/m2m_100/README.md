@@ -1,13 +1,13 @@
 # Beyond English-Centric Multilingual Machine Translation
 
 ## Introduction
-In this work, we create a true Many-to-Many multilingual translation model that can translate directly between any pair of 100 languages. Our focus on non-English-Centric models brings gains of more than 10 BLEU when directly translating between non-English directions while performing competitively with the best single systems of WMT. 
+In this work, we create a true Many-to-Many multilingual translation model that can translate directly between any pair of 100 languages. Our focus on non-English-Centric models brings gains of more than 10 BLEU when directly translating between non-English directions while performing competitively with the best single systems of WMT.
 
-If you are new to using fairseq, read the following walkthrough. Otherwise, skip to the sections below. 
+If you are new to using fairseq, read the following walkthrough. Otherwise, skip to the sections below.
 
 0. **Generation Data**
 
-To download the generation data, follow the below commands. Note that all datasets need to be detokenized *before* applying SPM in the data preprocessing step. If you use these evaluation datasets, please cite their associated papers. 
+To download the generation data, follow the below commands. Note that all datasets need to be detokenized *before* applying SPM in the data preprocessing step. If you use these evaluation datasets, please cite their associated papers.
 ```bash
 # WMT - use sacrebleu, example here:
 sacrebleu -t wmt14 -l fr-en --echo src > wmt.test.fr-en.fr
@@ -43,7 +43,7 @@ After downloading raw data, you will need to postprocess the data, then apply SP
 # preprocess data
 
 # remove sentences with more than 50% punctuation
-python /path/to/fairseq/examples/m2m_100/process_data/remove_too_much_punc.py 
+python /path/to/fairseq/examples/m2m_100/process_data/remove_too_much_punc.py
 
 # deduplicate training data
 paste /path/to/datadir/train.$src /path/to/datadir/train.$tgt | awk '!x[$0]++' > /path/to/datadir/train.dedup
@@ -52,10 +52,10 @@ cut -f1 /path/to/datadir/train.dedup > /path/to/datadir/train.$src
 cut -f2 /path/to/datadir/train.dedup > /path/to/datadir/train.$tgt
 
 # remove all instances of evaluation data from the training data
-python /path/to/fairseq/examples/m2m_100/process_data/dedup_data.py 
+python /path/to/fairseq/examples/m2m_100/process_data/dedup_data.py
 
 # frequency cleaning
-wget https://dl.fbaipublicfiles.com/m2m_100/histograms.tar.gz 
+wget https://dl.fbaipublicfiles.com/m2m_100/histograms.tar.gz
 tar -xvzf histograms.tar.gz
 python /path/to/fairseq/examples/m2m_100/process_data/clean_histogram.py --src $src --tgt $tgt --src-file /path/to/source/file --tgt-file /path/to/output/file --src-output-file source_output.$src --tgt-output-file target_output.$tgt --histograms /path/to/histograms
 
@@ -117,14 +117,14 @@ If you use any of the resources listed here, please cite:
 ## Trained Models
 
 ### 418M and 1.2B Model
-We include the last checkpoint for both of these models. 
+We include the last checkpoint for both of these models.
 
 ```bash
 wget https://dl.fbaipublicfiles.com/m2m_100/model_dict.128k.txt
-wget https://dl.fbaipublicfiles.com/m2m_100/language_pairs_small_models.txt 
+wget https://dl.fbaipublicfiles.com/m2m_100/language_pairs_small_models.txt
 
 # 418M parameter model
-wget https://dl.fbaipublicfiles.com/m2m_100/418M_last_checkpoint.pt 
+wget https://dl.fbaipublicfiles.com/m2m_100/418M_last_checkpoint.pt
 
 # 1.2B parameter model
 wget https://dl.fbaipublicfiles.com/m2m_100/1.2B_last_checkpoint.pt

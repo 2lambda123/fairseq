@@ -5,10 +5,11 @@
 
 import torch
 import torch.nn.functional as F
+
 from fairseq.criterions import register_criterion
 from fairseq.criterions.sentence_prediction import (
-    SentencePredictionCriterion,
     SentencePredictionConfig,
+    SentencePredictionCriterion,
 )
 
 

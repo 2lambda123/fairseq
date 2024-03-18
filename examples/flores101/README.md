@@ -36,7 +36,7 @@ cd $fairseq
 # Download 615M param model.
 wget https://dl.fbaipublicfiles.com/flores101/pretrained_models/flores101_mm100_615M.tar.gz
 
-# Extract 
+# Extract
 tar -xvzf flores101_mm100_615M.tar.gz
 ```
 
@@ -72,7 +72,7 @@ fairseq-preprocess \
     --srcdict flores101_mm100_615M/dict.txt --tgtdict flores101_mm100_615M/dict.txt
 ```
 
-### Generation 
+### Generation
 
 
 ```bash

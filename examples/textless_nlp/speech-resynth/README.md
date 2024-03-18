@@ -12,17 +12,17 @@ __Abstract__: We propose using self-supervised discrete representations for the 
 - [Samples](https://speechbot.github.io/resynthesis/index.html)
 - [Code](https://github.com/facebookresearch/speech-resynthesis)
 
-The codebase for the [Speech Resynthesis from Discrete Disentangled Self-Supervised Representations](https://arxiv.org/abs/2104.00355) paper can be found under the following [repository](https://github.com/facebookresearch/speech-resynthesis). 
+The codebase for the [Speech Resynthesis from Discrete Disentangled Self-Supervised Representations](https://arxiv.org/abs/2104.00355) paper can be found under the following [repository](https://github.com/facebookresearch/speech-resynthesis).
 
 
 ## Citation
 ```
 @inproceedings{polyak21_interspeech,
-  author={Adam Polyak and Yossi Adi and Jade Copet and 
-          Eugene Kharitonov and Kushal Lakhotia and 
+  author={Adam Polyak and Yossi Adi and Jade Copet and
+          Eugene Kharitonov and Kushal Lakhotia and
           Wei-Ning Hsu and Abdelrahman Mohamed and Emmanuel Dupoux},
   title={{Speech Resynthesis from Discrete Disentangled Self-Supervised Representations}},
   year=2021,
   booktitle={Proc. Interspeech 2021},
 }
-``` 
+```

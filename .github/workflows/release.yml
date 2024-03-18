@@ -24,7 +24,7 @@ jobs:
       - name: get next version and tag
         id: get-next-version-and-tag
         run: |
-          output=$(python3 release_utils.py --release-type ${{ github.event.inputs.name }}) 
+          output=$(python3 release_utils.py --release-type ${{ github.event.inputs.name }})
           echo $output
           new_version=$(echo $output | awk '{print $1}')
           new_tag=$(echo $output | awk '{print $2}')
@@ -88,7 +88,7 @@ jobs:
         run: |
           python3 -m pip install setuptools wheel twine torch
           python3 setup.py sdist
- 
+
       - uses: actions/upload-artifact@v2
         with:
           path: dist/*.tar.gz

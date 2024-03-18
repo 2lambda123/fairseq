@@ -80,7 +80,7 @@ python examples/emotion_conversion/preprocess/extract_f0.py \
 ## HiFiGAN training
 Now we are all set to train the HiFiGAN vocoder:
 ```
-python examples/emotion_conversion/speech-resynthesis/train.py 
+python examples/emotion_conversion/speech-resynthesis/train.py
     --checkpoint_path <hifigan-checkpoint-dir> \
     --config examples/emotion_conversion/speech-resynthesis/configs/EmoV/emov_hubert-layer9-cluster200_fixed-spkr-embedder_f0-raw_gst.json
 ```

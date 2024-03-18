@@ -3,13 +3,12 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+import logging
 from typing import Dict, List, Optional, Tuple
 
 import torch
 import torch.nn as nn
 from torch import Tensor
-
-import logging
 
 from fairseq import utils
 from fairseq.dataclass.utils import gen_parser_from_dataclass
@@ -20,7 +19,6 @@ from fairseq.models.transformer import (
     TransformerDecoderBase,
     TransformerEncoderBase,
 )
-
 
 logger = logging.getLogger(__name__)
 

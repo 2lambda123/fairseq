@@ -16,8 +16,7 @@ from fairseq.models import (
     register_model,
     register_model_architecture,
 )
-from fairseq.modules import LSTMCellWithZoneOut, LocationAttention
-
+from fairseq.modules import LocationAttention, LSTMCellWithZoneOut
 
 logger = logging.getLogger(__name__)
 

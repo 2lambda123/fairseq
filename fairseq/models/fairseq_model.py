@@ -13,6 +13,9 @@ from typing import Dict, List, Optional, Tuple
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from omegaconf import DictConfig
+from torch import Tensor
+
 from fairseq import utils
 from fairseq.data import Dictionary
 from fairseq.dataclass.utils import (
@@ -20,9 +23,6 @@ from fairseq.dataclass.utils import (
     gen_parser_from_dataclass,
 )
 from fairseq.models import FairseqDecoder, FairseqEncoder
-from omegaconf import DictConfig
-from torch import Tensor
-
 
 logger = logging.getLogger(__name__)
 

@@ -5,31 +5,26 @@
 # the root directory of this source tree. An additional grant of patent rights
 # can be found in the PATENTS file in the same directory.
 
-from dataclasses import dataclass, field
 import logging
 import math
 import os
+from dataclasses import dataclass, field
 from typing import Optional
+
 import torch
-
-from fairseq.logging import metrics
-from fairseq.tasks import FairseqTask, register_task
-from ..data import ExtractedFeaturesDataset, RandomInputDataset
-
-from fairseq.data import (
-    Dictionary,
-    data_utils,
-    StripTokenDataset,
-)
-from fairseq.dataclass import FairseqDataclass
-from fairseq.distributed.utils import get_data_parallel_world_size
 from omegaconf import MISSING
 
 from examples.speech_recognition.kaldi.kaldi_decoder import (
     KaldiDecoder,
     KaldiDecoderConfig,
 )
+from fairseq.data import Dictionary, StripTokenDataset, data_utils
+from fairseq.dataclass import FairseqDataclass
+from fairseq.distributed.utils import get_data_parallel_world_size
+from fairseq.logging import metrics
+from fairseq.tasks import FairseqTask, register_task
 
+from ..data import ExtractedFeaturesDataset, RandomInputDataset
 
 logger = logging.getLogger(__name__)
 
@@ -380,11 +375,11 @@ class UnpairedAudioText(FairseqTask):
         if num_chars > 0:
             metrics.log_derived(
                 "uer",
-                lambda meters: meters["_num_char_errors"].sum
-                * 100.0
-                / meters["_num_chars"].sum
-                if meters["_num_chars"].sum > 0
-                else float("nan"),
+                lambda meters: (
+                    meters["_num_char_errors"].sum * 100.0 / meters["_num_chars"].sum
+                    if meters["_num_chars"].sum > 0
+                    else float("nan")
+                ),
             )
 
             if lm_score_sum < 0 and vocab_seen > 0:

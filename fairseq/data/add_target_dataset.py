@@ -5,8 +5,9 @@
 
 import torch
 
+from fairseq.data.text_compressor import TextCompressionLevel, TextCompressor
+
 from . import BaseWrapperDataset, data_utils
-from fairseq.data.text_compressor import TextCompressor, TextCompressionLevel
 
 
 class AddTargetDataset(BaseWrapperDataset):

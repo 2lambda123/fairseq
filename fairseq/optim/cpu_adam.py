@@ -9,10 +9,10 @@ from dataclasses import dataclass, field
 from typing import List
 
 import torch
-from fairseq.dataclass import FairseqDataclass
-from fairseq.optim import FairseqOptimizer, register_optimizer
 from omegaconf import II, DictConfig
 
+from fairseq.dataclass import FairseqDataclass
+from fairseq.optim import FairseqOptimizer, register_optimizer
 
 try:
     import deepspeed
@@ -72,9 +72,9 @@ class FairseqCPUAdam(FairseqOptimizer):
         different learning rate.
         """
         return {
-            "lr": self.cfg.lr[0]
-            if isinstance(self.cfg.lr, Collection)
-            else self.cfg.lr,
+            "lr": (
+                self.cfg.lr[0] if isinstance(self.cfg.lr, Collection) else self.cfg.lr
+            ),
             "betas": eval(self.cfg.adam_betas),
             "eps": self.cfg.adam_eps,
             "weight_decay": self.cfg.weight_decay,

@@ -121,7 +121,7 @@ Please download and extract from the above tarballs. Each tarball contains
 * Sentence piece model: sentence.bpe.model
 * Fairseq dictionary of each language: dict.{lang}.txt (please replace lang with a language specified in ML50_langs.txt)
 
-To use the trained models, 
+To use the trained models,
 * use the tool [binarize.py](./data_scripts/binarize.py) to binarize your data using sentence.bpe.model and dict.{lang}.txt, and copy the dictionaries to your data path
 * then run the generation command:
 ```bash

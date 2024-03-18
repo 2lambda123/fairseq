@@ -10,8 +10,9 @@ from io import StringIO
 from unittest.mock import MagicMock, patch
 
 import torch
-from fairseq import checkpoint_utils, data
 from omegaconf import OmegaConf
+
+from fairseq import checkpoint_utils, data
 
 
 def mock_trainer(epoch, num_updates, iterations_in_epoch):
@@ -194,9 +195,9 @@ class TestLoadCheckpoint(unittest.TestCase):
                 else:
                     return False
 
-            self.patches[
-                "fairseq.file_io.PathManager.exists"
-            ].side_effect = mock_finetune_exist
+            self.patches["fairseq.file_io.PathManager.exists"].side_effect = (
+                mock_finetune_exist
+            )
             cfg_mock = get_mock_cfg(from_model_path)
             cfg_mock.checkpoint.restore_file = "checkpoint_last.pt"
             _, _ = checkpoint_utils.load_checkpoint(cfg_mock.checkpoint, trainer)
@@ -225,9 +226,9 @@ class TestLoadCheckpoint(unittest.TestCase):
                 else:
                     return False
 
-            self.patches[
-                "fairseq.file_io.PathManager.exists"
-            ].side_effect = mock_finetune_exist
+            self.patches["fairseq.file_io.PathManager.exists"].side_effect = (
+                mock_finetune_exist
+            )
             cfg_mock = get_mock_cfg(from_model_path)
             cfg_mock.checkpoint.restore_file = "checkpoint_last.pt"
             _, _ = checkpoint_utils.load_checkpoint(cfg_mock.checkpoint, trainer)

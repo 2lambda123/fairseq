@@ -12,11 +12,11 @@ from typing import Any, List
 import torch
 import torch.distributed as dist
 import torch.optim
+from omegaconf import II, OmegaConf
+
 from fairseq.dataclass import FairseqDataclass
 from fairseq.optim import FairseqOptimizer, register_optimizer
 from fairseq.optim.fused_adam import get_fused_adam_class
-from omegaconf import II, OmegaConf
-
 
 logger = logging.getLogger(__name__)
 
@@ -85,12 +85,14 @@ class FairseqAdam(FairseqOptimizer):
         different learning rate.
         """
         return {
-            "lr": self.cfg.lr[0]
-            if isinstance(self.cfg.lr, Collection)
-            else self.cfg.lr,
-            "betas": eval(self.cfg.adam_betas)
-            if isinstance(self.cfg.adam_betas, str)
-            else OmegaConf.to_container(self.cfg.adam_betas),
+            "lr": (
+                self.cfg.lr[0] if isinstance(self.cfg.lr, Collection) else self.cfg.lr
+            ),
+            "betas": (
+                eval(self.cfg.adam_betas)
+                if isinstance(self.cfg.adam_betas, str)
+                else OmegaConf.to_container(self.cfg.adam_betas)
+            ),
             "eps": self.cfg.adam_eps,
             "weight_decay": self.cfg.weight_decay,
         }

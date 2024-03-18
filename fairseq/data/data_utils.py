@@ -7,20 +7,21 @@ try:
     from collections.abc import Iterable
 except ImportError:
     from collections import Iterable
+
 import contextlib
 import itertools
 import logging
+import math
+import os
 import re
 import warnings
 from typing import Optional, Tuple
 
-import math
 import numpy as np
 import torch
 
-from fairseq.file_io import PathManager
 from fairseq import utils
-import os
+from fairseq.file_io import PathManager
 
 logger = logging.getLogger(__name__)
 

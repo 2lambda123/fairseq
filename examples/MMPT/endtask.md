@@ -6,10 +6,10 @@ Given the complexity of different types of finetuning tasks, each task may have 
 
 ### Tasks
 
-Currently, we support 5 end datasets: `MSRVTT`, `Youcook`, `COIN`, `Crosstask` and `DiDeMo` with the following tasks:  
-text-video retrieval: `MSRVTT`, `Youcook`, `DiDeMo`;   
-video captioning: `Youcook`;  
-Video Question and Answering: `MSRVTT-QA`.  
+Currently, we support 5 end datasets: `MSRVTT`, `Youcook`, `COIN`, `Crosstask` and `DiDeMo` with the following tasks:
+text-video retrieval: `MSRVTT`, `Youcook`, `DiDeMo`;
+video captioning: `Youcook`;
+Video Question and Answering: `MSRVTT-QA`.
 
 To add your own dataset, you can specify the corresponding processors and config them in the `dataset` field of a config file, such as `projects/task/vtt.yaml`.
 
@@ -23,7 +23,7 @@ The training of a downstream task is similar to pretraining, execept you may nee
 We typically do finetuning on 2 gpus (`local_small`).
 
 ### Testing
-For each finetuning dataset, you may need to specify a testing config, similar to `projects/task/test_vtt.yaml`.  
+For each finetuning dataset, you may need to specify a testing config, similar to `projects/task/test_vtt.yaml`.
 
 We define `mmpt.evaluators.Predictor` for different types of prediction. For example, `MSRVTT` and `Youcook` are video-retrieval tasks and expecting to use `RetrievalPredictor`. You may need to define your new type of predictors and specify that in `predictor` field of a testing config.
 
@@ -36,6 +36,6 @@ Testing will be launched locally by default since prediction is computationally 
 ### Third-party Libraries
 We list the following finetuning tasks that require third-party libraries.
 
-Youcook captioning: `https://github.com/Maluuba/nlg-eval`  
+Youcook captioning: `https://github.com/Maluuba/nlg-eval`
 
 CrossTask: `https://github.com/DmZhukov/CrossTask`'s `dp` under `third-party/CrossTask` (`python setup.py build_ext --inplace`)

@@ -65,4 +65,3 @@ Note about the manifest file is a file with paths and length of input audio file
 <relative_path_of_audio_file_2>\t<number_of_frames_1>
 ...
 ```
-

@@ -8,9 +8,10 @@ from dataclasses import dataclass, field
 from typing import List
 
 import torch
-from fairseq.dataclass import FairseqDataclass
 from omegaconf import II, DictConfig
 from torch.optim.optimizer import Optimizer, required
+
+from fairseq.dataclass import FairseqDataclass
 
 from . import FairseqOptimizer, register_optimizer
 
@@ -38,9 +39,9 @@ class FairseqNAG(FairseqOptimizer):
         different learning rate.
         """
         return {
-            "lr": self.cfg.lr[0]
-            if isinstance(self.cfg.lr, Collection)
-            else self.cfg.lr,
+            "lr": (
+                self.cfg.lr[0] if isinstance(self.cfg.lr, Collection) else self.cfg.lr
+            ),
             "momentum": self.cfg.momentum,
             "weight_decay": self.cfg.weight_decay,
         }

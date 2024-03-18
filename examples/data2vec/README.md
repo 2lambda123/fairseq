@@ -102,7 +102,7 @@ $ python fairseq_cli/hydra_train.py -m --config-dir examples/wav2vec/config/fine
 task.data=/path/to/manifests model.w2v_path=/path/to/pretrained/model common.user_dir=examples/data2vec
 ```
 
-Replace vox_10h with the right config depending on your model and fine-tuning split. 
+Replace vox_10h with the right config depending on your model and fine-tuning split.
 See examples/wav2vec/config/finetuning for all available configs.
 
 ### NLP
@@ -122,8 +122,8 @@ $ python fairseq_cli/hydra_train.py -m --config-dir examples/data2vec/config/v2/
 ```
 
 # data2vec
-  
-data2vec is a framework for self-supervised representation learning for images, speech, and text as described in [data2vec: A General Framework for Self-supervised Learning in Speech, Vision and Language (Baevski et al., 2022)](https://ai.facebook.com/research/data2vec-a-general-framework-for-self-supervised-learning-in-speech-vision-and-language).  The algorithm uses the same learning mechanism for different modalities. 
+
+data2vec is a framework for self-supervised representation learning for images, speech, and text as described in [data2vec: A General Framework for Self-supervised Learning in Speech, Vision and Language (Baevski et al., 2022)](https://ai.facebook.com/research/data2vec-a-general-framework-for-self-supervised-learning-in-speech-vision-and-language).  The algorithm uses the same learning mechanism for different modalities.
 
 
 ## Pre-trained models

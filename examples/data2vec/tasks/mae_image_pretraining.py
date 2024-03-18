@@ -7,10 +7,10 @@
 
 import logging
 import sys
-
-from typing import Optional, List
 from dataclasses import dataclass, field
-from omegaconf import MISSING, II
+from typing import List, Optional
+
+from omegaconf import II, MISSING
 
 from fairseq.data import SubsampleDataset
 from fairseq.dataclass import FairseqDataclass

@@ -5,16 +5,16 @@
 # the root directory of this source tree. An additional grant of patent rights
 # can be found in the PATENTS file in the same directory.
 
-import os.path as osp
 import logging
-
+import os.path as osp
 from dataclasses import dataclass
+
 import torch
 from torchvision import transforms
 
 from fairseq.dataclass import FairseqDataclass
-from fairseq.tasks import register_task
 from fairseq.logging import metrics
+from fairseq.tasks import register_task
 
 try:
     from ..data import ImageDataset
@@ -25,9 +25,9 @@ except:
     from data import ImageDataset
 
 from .image_pretraining import (
+    IMG_EXTENSIONS,
     ImagePretrainingConfig,
     ImagePretrainingTask,
-    IMG_EXTENSIONS,
 )
 
 logger = logging.getLogger(__name__)

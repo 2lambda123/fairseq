@@ -59,7 +59,7 @@ For example, assuming this directory tree::
 
   /home/user/my-module/
   └── __init__.py
-  
+
 with ``__init__.py``::
 
   from fairseq.models import register_model_architecture

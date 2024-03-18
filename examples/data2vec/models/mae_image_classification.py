@@ -7,25 +7,21 @@
 # https://github.com/microsoft/unilm/tree/master/beit
 
 import logging
-
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Any, Optional
 
 import numpy as np
-from omegaconf import II, MISSING
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from omegaconf import II, MISSING, open_dict
 
 from fairseq import checkpoint_utils, tasks
-from omegaconf import open_dict
-
 from fairseq.dataclass import FairseqDataclass
 from fairseq.models import BaseFairseqModel, register_model
-from .mae import interpolate_pos_embed
 
+from .mae import interpolate_pos_embed
 
 logger = logging.getLogger(__name__)
 
@@ -131,12 +127,12 @@ class MaeImageClassificationModel(BaseFairseqModel):
             model_blocks = pretrained_args.model["depth"]
             with open_dict(pretrained_args):
                 dpr = np.linspace(0, cfg.drop_path_rate, model_blocks).tolist()
-                pretrained_args.model["modalities"]["image"][
-                    "start_drop_path_rate"
-                ] = dpr[0]
-                pretrained_args.model["modalities"]["image"][
-                    "end_drop_path_rate"
-                ] = max(0, dpr[prenet_blocks - 1])
+                pretrained_args.model["modalities"]["image"]["start_drop_path_rate"] = (
+                    dpr[0]
+                )
+                pretrained_args.model["modalities"]["image"]["end_drop_path_rate"] = (
+                    max(0, dpr[prenet_blocks - 1])
+                )
                 pretrained_args.model["start_drop_path_rate"] = dpr[prenet_blocks]
                 pretrained_args.model["end_drop_path_rate"] = dpr[-1]
 

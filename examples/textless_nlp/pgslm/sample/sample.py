@@ -3,25 +3,23 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-import os
-import torch.multiprocessing as mp
-import numpy as np
 import json
+import os
+import pathlib
+import random
+import sys
 
+import numpy as np
 import torch
+import torch.multiprocessing as mp
+import tqdm
 from torch.distributions.categorical import Categorical
+from torch.utils.data import DataLoader, DistributedSampler
 
 from fairseq import checkpoint_utils, options, utils
 from fairseq.data.codedataset import CodeDataset, ExpressiveCodeDataConfig
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
-from torch.utils.data import DataLoader, DistributedSampler
 from fairseq.utils import move_to_cuda
-
-import tqdm
-import random
-import pathlib
-
-import sys, pathlib
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent))
 from inference_dataset import InferenceDataset, explode_batch
@@ -376,9 +374,11 @@ def main(rank, world_size, args):
 
     pbar = (
         tqdm.tqdm(
-            total=dataset_size
-            if raw_args.max_samples is None
-            else min(raw_args.max_samples, dataset_size)
+            total=(
+                dataset_size
+                if raw_args.max_samples is None
+                else min(raw_args.max_samples, dataset_size)
+            )
         )
         if world_size == 1
         else None

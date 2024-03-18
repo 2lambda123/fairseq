@@ -9,10 +9,10 @@ You can find demo samples [[here]](https://speechbot.github.io/pgslm/index.html)
 
 <details>
   <summary>If you find this code useful, please consider citing our work using this bibtex </summary>
-  
+
 ```
   @misc{Kharitonov2021,
-      title={Text-Free Prosody-Aware Generative Spoken Language Modeling}, 
+      title={Text-Free Prosody-Aware Generative Spoken Language Modeling},
       author={Eugene Kharitonov and Ann Lee and Adam Polyak and Yossi Adi and Jade Copet and Kushal Lakhotia and Tu-Anh Nguyen and Morgane Rivière and Abdelrahman Mohamed and Emmanuel Dupoux and Wei-Ning Hsu},
       year={2021},
       eprint={2109.03264},
@@ -25,7 +25,7 @@ You can find demo samples [[here]](https://speechbot.github.io/pgslm/index.html)
 
 ## Additional requirements
 Three packages are required in addition to fairseq, they are installable with pip:
-```bash 
+```bash
 pip install AMFM-decompy SoundFile scipy sklearn torchaudio npy-append-array
 ```
 
@@ -54,7 +54,7 @@ Finally, by running
 ```
 python examples/textless_nlp/pgslm/scripts/join_units_manifest.py --manifest=manifests/train/train.tsv --units=manifests/train/units --output=train.txt
 ```
-We will get the training data description `train.txt` in the format that pGSLM expects. The above steps have to be repeated for 
+We will get the training data description `train.txt` in the format that pGSLM expects. The above steps have to be repeated for
 dev/test sets. Importantly, we rely on an assumption that the directories are structured as in LibriSpeech, i.e. the file paths follow the
 `<spk_id>/<session_id>/<sample_id>.wav` format.
 
@@ -70,7 +70,7 @@ bash examples/textless_nlp/pgslm/scripts/prepare_f0_quantization.sh \
 - `<preprocessed_dir>`: where to output the output files
 - `<output_prefix>`: prefix of the output files
 
-The script will generate 
+The script will generate
 - `<output_prefix>.f0_stat.pt`: the speaker-level F0 statistics, which can be used in vocoder training
 - `<output_prefix>_mean_norm_log_f0_bin.th`: the quantized F0, which should be used in `prepare_data.sh` below
 
@@ -192,7 +192,7 @@ python examples/textless_nlp/pgslm/eval/cont_metrics.py $DATA \
   --fp16 \
   --seed=111 \
   --eval-subset=$SET \
-  --f0-discretization-bounds=mean_norm_log_f0_seg_bin.th --dequantize-prosody 
+  --f0-discretization-bounds=mean_norm_log_f0_seg_bin.th --dequantize-prosody
 ```
 (Using this command, our provided `discrete_prosody_shift_1_1.pt` checkpoint should produce `{'token_loss': 1.408..., 'duration_loss': 0.5424..., 'f0_loss': 0.0474...}` on LibriSpeech dev-clean).
 
@@ -263,7 +263,7 @@ python examples/textless_nlp/pgslm/eval/cont_metrics.py $DATA \
 
 Again, by setting `--teacher-force-tokens, --teacher-force-duration, --teacher-force-f0` we can calculate Token BLEU for the token stream (when `--teacher-force-duration` &  `--teacher-force-f0` are on) and per-stream min MAE for each prosody stream individually.
 
-Finally, `cont_metrics.py` allows to specify the number of workers (e.g., `n-workers=8`) which allows to speed up the computation by spreading multiple worker processes 
+Finally, `cont_metrics.py` allows to specify the number of workers (e.g., `n-workers=8`) which allows to speed up the computation by spreading multiple worker processes
 over the available GPUs.
 
 **Cont Word BLEU**
@@ -275,7 +275,7 @@ We used the code and the evaluation protocol of [(Lakhotia et al., 2021)](https:
 To get (prompted or not) samples from a trained model it is enough to run `sample.py`:
 ```bash
 CHECKPOINT_PATH=checkpoints/checkpoint_best.pt
-DATASET=examples/textless_nlp/pgslm/repro/dataset/data_config.json 
+DATASET=examples/textless_nlp/pgslm/repro/dataset/data_config.json
 python examples/textless_nlp/pgslm/sample/sample.py $DATASET \
   --output=$SAMPLES \
   --path=$CHECKPOINT_PATH \

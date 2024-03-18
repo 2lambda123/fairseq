@@ -4,15 +4,14 @@
 # LICENSE file in the root directory of this source tree.
 
 
+import contextlib
 import logging
 import os
-import contextlib
 
 import numpy as np
 import torch
 
 from fairseq.data import FairseqDataset, data_utils
-
 
 logger = logging.getLogger(__name__)
 
@@ -56,9 +55,11 @@ class ExtractedFeaturesDataset(FairseqDataset):
         if not os.path.exists(path + f".{labels}"):
             labels = None
 
-        with open(data_path + ".lengths", "r") as len_f, open(
-            path + f".{labels}", "r"
-        ) if labels is not None else contextlib.ExitStack() as lbl_f:
+        with open(data_path + ".lengths", "r") as len_f, (
+            open(path + f".{labels}", "r")
+            if labels is not None
+            else contextlib.ExitStack()
+        ) as lbl_f:
             for line in len_f:
                 length = int(line.rstrip())
                 lbl = None if labels is None else next(lbl_f).rstrip().split()
@@ -73,16 +74,17 @@ class ExtractedFeaturesDataset(FairseqDataset):
 
         self.sizes = np.asarray(self.sizes)
         self.offsets = np.asarray(self.offsets)
-        
+
         if aux_target_postfix is not None:
-            if not os.path.exists(path+f".{aux_target_postfix}"):
+            if not os.path.exists(path + f".{aux_target_postfix}"):
                 logger.info(f"auxaliry target for {split} missing")
             else:
-                with open(path+f".{aux_target_postfix}", "r") as t_f:
+                with open(path + f".{aux_target_postfix}", "r") as t_f:
                     self.aux_tgt = [
-                        torch.LongTensor(list(map(int,seg.strip().split())))\
-                                    for seg in t_f]
- 
+                        torch.LongTensor(list(map(int, seg.strip().split())))
+                        for seg in t_f
+                    ]
+
         logger.info(f"loaded {len(self.offsets)}, skipped {skipped} samples")
 
     def __getitem__(self, index):
@@ -97,7 +99,7 @@ class ExtractedFeaturesDataset(FairseqDataset):
                 line_tokenizer=lambda x: x,
                 append_eos=False,
             )
-        
+
         if self.aux_tgt:
             res["aux_target"] = self.aux_tgt[index]
 
@@ -135,7 +137,7 @@ class ExtractedFeaturesDataset(FairseqDataset):
                 left_pad=False,
             )
             res["target"] = target
-        
+
         if self.aux_tgt:
             idxs = torch.nn.utils.rnn.pad_sequence(
                 [s["aux_target"] for s in samples],
@@ -143,7 +145,7 @@ class ExtractedFeaturesDataset(FairseqDataset):
                 padding_value=-1,
             )
             res["net_input"]["aux_target"] = idxs
-        
+
         return res
 
     def num_tokens(self, index):
