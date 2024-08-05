@@ -5,19 +5,22 @@
 
 import logging
 import math
+from collections import namedtuple
+from dataclasses import dataclass
+from functools import partial
+from typing import Callable, Optional
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from collections import namedtuple
-from dataclasses import dataclass
-from functools import partial
-from omegaconf import MISSING, II
-from typing import Optional, Callable
+from omegaconf import II, MISSING
+
+from examples.data2vec.data.modality import Modality
 from fairseq.data.data_utils import compute_mask_indices
 from fairseq.modules import GradMultiply
 from fairseq.utils import index_put
-from examples.data2vec.data.modality import Modality
+
 from .modules import D2vDecoderConfig
 
 logger = logging.getLogger(__name__)
@@ -114,13 +117,17 @@ class ModalitySpecificEncoder(nn.Module):
             self.alibi_scale = nn.Parameter(
                 torch.full(
                     (
-                        (modality_cfg.prenet_depth + modality_cfg.model_depth)
-                        if modality_cfg.learned_alibi_scale_per_layer
-                        else 1,
+                        (
+                            (modality_cfg.prenet_depth + modality_cfg.model_depth)
+                            if modality_cfg.learned_alibi_scale_per_layer
+                            else 1
+                        ),
                         1,
-                        self.modality_cfg.num_alibi_heads
-                        if modality_cfg.learned_alibi_scale_per_head
-                        else 1,
+                        (
+                            self.modality_cfg.num_alibi_heads
+                            if modality_cfg.learned_alibi_scale_per_head
+                            else 1
+                        ),
                         1,
                         1,
                     ),
@@ -313,9 +320,11 @@ class ModalitySpecificEncoder(nn.Module):
             x,
             masked_padding_mask,
             alibi_bias,
-            alibi_scale[: self.modality_cfg.prenet_depth]
-            if alibi_scale is not None
-            else None,
+            (
+                alibi_scale[: self.modality_cfg.prenet_depth]
+                if alibi_scale is not None
+                else None
+            ),
         )
 
         return {
@@ -323,9 +332,11 @@ class ModalitySpecificEncoder(nn.Module):
             "local_features": local_features,
             "padding_mask": masked_padding_mask,
             "alibi_bias": alibi_bias,
-            "alibi_scale": alibi_scale[self.modality_cfg.prenet_depth :]
-            if alibi_scale is not None and alibi_scale.size(0) > 1
-            else alibi_scale,
+            "alibi_scale": (
+                alibi_scale[self.modality_cfg.prenet_depth :]
+                if alibi_scale is not None and alibi_scale.size(0) > 1
+                else alibi_scale
+            ),
             "encoder_mask": mask_info,
         }
 

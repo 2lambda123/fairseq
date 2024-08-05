@@ -25,7 +25,6 @@ from fairseq.sequence_generator import SequenceGenerator
 from . import register_task
 from .multilingual_translation import MultilingualTranslationTask
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -348,9 +347,11 @@ class SemisupervisedTranslationTask(MultilingualTranslationTask):
                     for lang_pair, dataset in noising_datasets.items()
                 ]
             ),
-            eval_key=None
-            if self.training
-            else "%s-%s" % (self.args.source_lang, self.args.target_lang),
+            eval_key=(
+                None
+                if self.training
+                else "%s-%s" % (self.args.source_lang, self.args.target_lang)
+            ),
         )
 
     def build_model(self, args, from_checkpoint=False):

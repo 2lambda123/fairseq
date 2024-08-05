@@ -9,10 +9,10 @@ import os
 import sys
 from itertools import chain
 
+import hydra
 import torch
 from hydra.core.hydra_config import HydraConfig
 from omegaconf import OmegaConf, open_dict
-import hydra
 
 from fairseq import checkpoint_utils, distributed_utils, utils
 from fairseq.dataclass.configs import FairseqConfig

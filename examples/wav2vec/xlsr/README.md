@@ -12,7 +12,7 @@ You can also download these models [here](https://huggingface.co/models?other=xl
 
 ## Speech Translation Finetuned Models
 
-We multilingually finetune XLS-R models on [CoVoST 2](https://github.com/facebookresearch/covost), which has 21 
+We multilingually finetune XLS-R models on [CoVoST 2](https://github.com/facebookresearch/covost), which has 21
 into-English and 15 out-of-English directions.
 
 Model | Directions | Link
@@ -57,7 +57,7 @@ XLS-R 300M + ft Voxlingua107 | [download](https://dl.fbaipublicfiles.com/fairseq
 
 How to run inference & calculate accuracy (step-by-step):
 1. Download the Voxlingua107 checkpoint from the table above.
-1. Use this python script to extract logit/embedding from the XLSR model: https://github.com/fairinternal/fairseq-py/blob/xlsr2/examples/wav2vec/gen_audio_embedding.py 
+1. Use this python script to extract logit/embedding from the XLSR model: https://github.com/fairinternal/fairseq-py/blob/xlsr2/examples/wav2vec/gen_audio_embedding.py
 ```shell command
 CUDA_VISIBLE_DEVICES=0 PYTHONPATH=. python3 examples/wav2vec/gen_audio_embedding.py \
     /fsx/data/VoxLingua107/manifest --path "/path/to/checkpoint.pt" \
@@ -71,7 +71,7 @@ CUDA_VISIBLE_DEVICES=0 PYTHONPATH=. python3 examples/wav2vec/gen_audio_embedding
 PYTHONPATH='.' python examples/wav2vec/eval_speaker_clf_task.py \
     --task cls --merge mean_logit --data /tmp/tmp_voxling_infer.npz
 
-Output: 
+Output:
 | run classification evaluation
 | acc = 94.34% -- err = 5.66% -- correct=1518 total=1609
 | acc 0to5 = 90.91% -- err = 9.09% -- c_5=230.0 t_5=253
@@ -84,12 +84,10 @@ Please cite as:
 
 ``` bibtex
 @article{babu2021xlsr,
-      title={XLS-R: Self-supervised Cross-lingual Speech Representation Learning at Scale}, 
+      title={XLS-R: Self-supervised Cross-lingual Speech Representation Learning at Scale},
       author={Arun Babu and Changhan Wang and Andros Tjandra and Kushal Lakhotia and Qiantong Xu and Naman Goyal and Kritika Singh and Patrick von Platen and Yatharth Saraf and Juan Pino and Alexei Baevski and Alexis Conneau and Michael Auli},
       year={2021},
       volume={abs/2111.09296},
       journal={arXiv},
 }
 ```
-
-

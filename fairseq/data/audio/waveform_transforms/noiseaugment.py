@@ -1,6 +1,7 @@
-from pathlib import Path
-import numpy as np
 from math import ceil
+from pathlib import Path
+
+import numpy as np
 
 from fairseq.data.audio import rand_uniform
 from fairseq.data.audio.waveform_transforms import (

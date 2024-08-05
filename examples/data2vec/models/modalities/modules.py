@@ -3,17 +3,14 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+from dataclasses import dataclass
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
-from dataclasses import dataclass
-from fairseq.modules import (
-    LayerNorm,
-    SamePad,
-    SamePad2d,
-    TransposeLast,
-)
+
+from fairseq.modules import LayerNorm, SamePad, SamePad2d, TransposeLast
 
 
 @dataclass
@@ -337,7 +334,7 @@ class AltAttention(nn.Module):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
-        self.scale = qk_scale or head_dim ** -0.5
+        self.scale = qk_scale or head_dim**-0.5
 
         self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
         self.attn_drop = nn.Dropout(attn_drop)
@@ -411,7 +408,7 @@ class EncDecAttention(nn.Module):
         super().__init__()
         self.num_heads = num_heads
         head_dim = q_dim // num_heads
-        self.scale = qk_scale or head_dim ** -0.5
+        self.scale = qk_scale or head_dim**-0.5
 
         self.q_proj = nn.Linear(q_dim, q_dim, bias=qkv_bias)
         self.kv_proj = nn.Linear(kv_dim, 2 * q_dim, bias=qkv_bias)

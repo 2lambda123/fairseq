@@ -7,7 +7,7 @@
 """
 Usage:
     $ python misc/get_sample_size.py <input_file> > <output_file>
-    
+
     <input_file> contains list of wav files
     $ cat <input_file>
       /path/to/audio_1.wav
@@ -19,6 +19,7 @@ Usage:
       /path/to/audio_2.wav    120000
 """
 import sys
+
 import soundfile as sf
 
 if __name__ == "__main__":
@@ -26,4 +27,4 @@ if __name__ == "__main__":
     with open(files) as fr:
         for fi in fr:
             fi = fi.strip()
-            print(f'{fi}\t{sf.SoundFile(fi).frames}')
+            print(f"{fi}\t{sf.SoundFile(fi).frames}")

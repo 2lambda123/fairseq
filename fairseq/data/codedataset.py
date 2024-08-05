@@ -14,8 +14,9 @@ import numpy as np
 import torch
 import torch.utils.data
 
-from . import data_utils
 from fairseq.data.fairseq_dataset import FairseqDataset
+
+from . import data_utils
 
 F0_FRAME_SPACE = 0.005  # sec
 

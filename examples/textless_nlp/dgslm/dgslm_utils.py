@@ -3,28 +3,33 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-import numpy as np
-import torch
 import json
 
-from fairseq import utils
-from fairseq.models.text_to_speech.vocoder import CodeHiFiGANVocoder
+import numpy as np
+import torch
+
+from examples.hubert.simple_kmeans.dump_km_label import ApplyKmeans
 
 # from examples.hubert.simple_kmeans.dump_hubert_feature import HubertFeatureReader
-from examples.textless_nlp.gslm.speech2unit.pretrained.hubert_feature_reader import HubertFeatureReader
-from examples.hubert.simple_kmeans.dump_km_label import ApplyKmeans
+from examples.textless_nlp.gslm.speech2unit.pretrained.hubert_feature_reader import (
+    HubertFeatureReader,
+)
+from fairseq import utils
+from fairseq.models.text_to_speech.vocoder import CodeHiFiGANVocoder
 
 
 # Hubert tokenizer
 class HubertTokenizer:
     def __init__(
-                self,
-                hubert_path,
-                hubert_layer,
-                km_path,
-                use_cuda=True,
-            ):
-        self.feature_extractor = HubertFeatureReader(hubert_path, hubert_layer, use_cuda=use_cuda)
+        self,
+        hubert_path,
+        hubert_layer,
+        km_path,
+        use_cuda=True,
+    ):
+        self.feature_extractor = HubertFeatureReader(
+            hubert_path, hubert_layer, use_cuda=use_cuda
+        )
         self.quantizer = ApplyKmeans(km_path)
         if not use_cuda:
             self.quantizer.C = self.quantizer.C.cpu()
@@ -33,24 +38,21 @@ class HubertTokenizer:
     def wav2code(self, path, channel_id=1):
         feat = self.feature_extractor.get_feats(path, channel_id=channel_id)
         code = self.quantizer(feat)
-        return ' '.join(map(str, code))
+        return " ".join(map(str, code))
 
     def wav2codes(self, path):
-        codes = [
-            self.wav2code(path, channel_id=1),
-            self.wav2code(path, channel_id=2)
-        ]
+        codes = [self.wav2code(path, channel_id=1), self.wav2code(path, channel_id=2)]
         return codes
 
 
 # Vocoder
 class HifiganVocoder:
     def __init__(
-                self,
-                vocoder_path,
-                vocoder_cfg_path,
-                use_cuda=True,
-            ):
+        self,
+        vocoder_path,
+        vocoder_cfg_path,
+        use_cuda=True,
+    ):
         with open(vocoder_cfg_path) as f:
             cfg = json.load(f)
         self.vocoder = CodeHiFiGANVocoder(vocoder_path, cfg).eval()

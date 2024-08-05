@@ -4,11 +4,13 @@
 # LICENSE file in the root directory of this source tree.
 
 import unittest
+
 import torch
-from tests.speech import TestFairseqSpeech
-from fairseq.data.data_utils import post_process
-from fairseq import utils
 from omegaconf import open_dict
+
+from fairseq import utils
+from fairseq.data.data_utils import post_process
+from tests.speech import TestFairseqSpeech
 
 S3_BASE_URL = "https://dl.fbaipublicfiles.com/fairseq"
 

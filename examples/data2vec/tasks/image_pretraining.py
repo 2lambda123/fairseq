@@ -6,14 +6,13 @@
 # can be found in the PATENTS file in the same directory.
 
 import logging
-import sys
 import os.path as osp
-
+import sys
 from dataclasses import dataclass, field
 from typing import List
-from omegaconf import MISSING
 
 import torch
+from omegaconf import MISSING
 from torchvision import transforms
 
 from fairseq.dataclass import FairseqDataclass

@@ -1,13 +1,13 @@
 ### Config Files Explained
 
-Taking `projects/mfmmlm.yaml` for example, which run pretraining using masked frame model (MFM) and masked language model (MLM) on a single BERT:  
+Taking `projects/mfmmlm.yaml` for example, which run pretraining using masked frame model (MFM) and masked language model (MLM) on a single BERT:
 
 ```yaml
 project_dir: mfmmlm # specify the project dir for this baseline.
 run_task:
   - how2.yaml # run pretraining on how2 when launching `projects/taskmfmmlm.yaml`
   - [vtt.yaml, vttcap.yaml, vttqa.yaml, youcook.yaml, youcookcap.yaml, crosstask.yaml, coin.yaml] # run fine-tuning tasks.
-base_dir: task # a global template folder to specify each training task. 
+base_dir: task # a global template folder to specify each training task.
 task_group:
   pretrain: # section for pretraining. Most baselines differs in this section.
     task_list:

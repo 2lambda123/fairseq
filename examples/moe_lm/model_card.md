@@ -42,7 +42,7 @@ The 1.1T parameter model was primarily evaluated on
 
 ### Approaches to handle uncertainty
 For few-shot learning, we report the average results across 25 runs, randomly sampling a different set of few-shot examples from the training set each time.
- 
+
 ## Evaluation data
 ## Zero Shot evaluation
 

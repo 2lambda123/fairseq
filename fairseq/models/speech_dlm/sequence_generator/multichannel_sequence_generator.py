@@ -6,16 +6,17 @@
 import math
 from typing import Dict, List, Optional
 
-from omegaconf.listconfig import ListConfig
-from omegaconf.dictconfig import DictConfig
-
 import torch
 import torch.nn as nn
-from fairseq.models import FairseqIncrementalDecoder
+from omegaconf.dictconfig import DictConfig
+from omegaconf.listconfig import ListConfig
 from torch import Tensor
-from fairseq.ngram_repeat_block import NGramRepeatBlock
-from .multichannel_search import ContiguousMultichannelBeamSearch
+
+from fairseq.models import FairseqIncrementalDecoder
 from fairseq.models.speech_dlm import SpeechDLM
+from fairseq.ngram_repeat_block import NGramRepeatBlock
+
+from .multichannel_search import ContiguousMultichannelBeamSearch
 
 
 class MultichannelSequenceGenerator(nn.Module):
@@ -678,17 +679,17 @@ class MultichannelSequenceGenerator(nn.Module):
             )
             # Select the next token for each of them
             for i in range(self.n_channels):
-                tokens.view(bsz, beam_size, -1, self.n_channels)[
-                    :, :, step + 1, i
-                ] = torch.gather(cand_indices[..., i], dim=1, index=active_hypos)
+                tokens.view(bsz, beam_size, -1, self.n_channels)[:, :, step + 1, i] = (
+                    torch.gather(cand_indices[..., i], dim=1, index=active_hypos)
+                )
             if step > 0:
                 scores[:, :step] = torch.index_select(
                     scores[:, :step], dim=0, index=active_bbsz_idx
                 )
             for i in range(self.n_channels):
-                scores.view(bsz, beam_size, -1, self.n_channels)[
-                    :, :, step, i
-                ] = torch.gather(cand_scores[..., i], dim=1, index=active_hypos)
+                scores.view(bsz, beam_size, -1, self.n_channels)[:, :, step, i] = (
+                    torch.gather(cand_scores[..., i], dim=1, index=active_hypos)
+                )
 
             if self.duration_prediction:
                 dur_counter = torch.index_select(

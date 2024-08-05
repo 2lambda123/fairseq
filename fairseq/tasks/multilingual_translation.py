@@ -6,23 +6,23 @@
 import contextlib
 import logging
 import os
-from collections import OrderedDict
 from argparse import ArgumentError
+from collections import OrderedDict
 
 import torch
+
 from fairseq import options, utils
-from fairseq.logging import metrics
 from fairseq.data import (
     Dictionary,
     LanguagePairDataset,
     RoundRobinZipDatasets,
     TransformEosLangPairDataset,
 )
+from fairseq.logging import metrics
 from fairseq.models import FairseqMultiModel
 from fairseq.tasks.translation import load_langpair_dataset
 
 from . import LegacyFairseqTask, register_task
-
 
 logger = logging.getLogger(__name__)
 
@@ -250,9 +250,11 @@ class MultilingualTranslationTask(LegacyFairseqTask):
                     for lang_pair in self.lang_pairs
                 ]
             ),
-            eval_key=None
-            if self.training
-            else "%s-%s" % (self.args.source_lang, self.args.target_lang),
+            eval_key=(
+                None
+                if self.training
+                else "%s-%s" % (self.args.source_lang, self.args.target_lang)
+            ),
         )
 
     def build_dataset_for_inference(self, src_tokens, src_lengths, constraints=None):

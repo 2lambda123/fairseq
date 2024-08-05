@@ -8,13 +8,14 @@ from typing import Dict, Optional
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import Tensor
+
 from fairseq import utils
 from fairseq.incremental_decoding_utils import (
     FairseqIncrementalState,
     with_incremental_state,
 )
 from fairseq.modules.fairseq_dropout import FairseqDropout
-from torch import Tensor
 
 from .unfold import unfold1d
 

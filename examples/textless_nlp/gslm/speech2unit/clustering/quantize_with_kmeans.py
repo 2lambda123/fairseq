@@ -7,15 +7,11 @@ import argparse
 import logging
 import os
 
+import joblib
 import numpy as np
 
-import joblib
-from examples.textless_nlp.gslm.speech2unit.clustering.utils import (
-    get_audio_files,
-)
-from examples.textless_nlp.gslm.speech2unit.pretrained.utils import (
-    get_features,
-)
+from examples.textless_nlp.gslm.speech2unit.clustering.utils import get_audio_files
+from examples.textless_nlp.gslm.speech2unit.pretrained.utils import get_features
 
 
 def get_logger():
@@ -38,9 +34,7 @@ def get_parser():
         help="Acoustic feature type",
     )
     parser.add_argument(
-        "--acoustic_model_path",
-        type=str,
-        help="Pretrained acoustic model checkpoint"
+        "--acoustic_model_path", type=str, help="Pretrained acoustic model checkpoint"
     )
     parser.add_argument(
         "--layer",
@@ -77,13 +71,12 @@ def get_parser():
     )
     parser.add_argument(
         "--channel_id",
-        choices=['1', '2'],
+        choices=["1", "2"],
         help="The audio channel to extract the units in case of stereo file.",
         default=None,
     )
     parser.add_argument(
-        "--hide-fname", action='store_true',
-        help="Hide file names in the output file."
+        "--hide-fname", action="store_true", help="Hide file names in the output file."
     )
     return parser
 
@@ -104,12 +97,8 @@ def main(args, logger):
             flatten=False,
             channel_id=int(args.channel_id) if args.channel_id else None,
         )
-        logger.info(
-            f"Features extracted for {len(features_batch)} utterances.\n"
-        )
-        logger.info(
-            f"Dimensionality of representation = {features_batch[0].shape[1]}"
-        )
+        logger.info(f"Features extracted for {len(features_batch)} utterances.\n")
+        logger.info(f"Dimensionality of representation = {features_batch[0].shape[1]}")
 
     # K-means model
     logger.info(f"Loading K-means model from {args.kmeans_model_path} ...")
@@ -124,9 +113,11 @@ def main(args, logger):
         for i, feats in enumerate(features_batch):
             pred = kmeans_model.predict(feats)
             pred_str = " ".join(str(p) for p in pred)
-            base_fname = os.path.basename(fnames[i]).rstrip('.'+args.extension.lstrip('.'))
+            base_fname = os.path.basename(fnames[i]).rstrip(
+                "." + args.extension.lstrip(".")
+            )
             if args.channel_id is not None:
-                base_fname = base_fname+f'-channel{args.channel_id}'
+                base_fname = base_fname + f"-channel{args.channel_id}"
             if not args.hide_fname:
                 fout.write(f"{base_fname}|{pred_str}\n")
             else:

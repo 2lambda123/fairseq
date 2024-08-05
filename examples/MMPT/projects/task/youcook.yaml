@@ -22,4 +22,3 @@ fairseq:
     max_epoch: 10
   checkpoint:
     save_dir: runs/task/youcook
- 

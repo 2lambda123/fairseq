@@ -22,7 +22,7 @@ Model | en-ro | ro-en
 ---|---|---
 `Random` | 34.3 | 34.0
 `mbart.cc25` | 37.7 | 37.8
-`mbart.enro.bilingual` | 38.5 | 38.5 
+`mbart.enro.bilingual` | 38.5 | 38.5
 
 ## BPE data
 # download model
@@ -87,8 +87,8 @@ fairseq-train path_2_data \
 Get sacrebleu on finetuned en-ro model
 
 get tokenizer  [here](https://github.com/rsennrich/wmt16-scripts)
-```bash  
-wget https://dl.fbaipublicfiles.com/fairseq/models/mbart/mbart.cc25.ft.enro.tar.gz  
+```bash
+wget https://dl.fbaipublicfiles.com/fairseq/models/mbart/mbart.cc25.ft.enro.tar.gz
 tar -xzvf mbart.cc25.ft.enro.tar.gz
 ```
 

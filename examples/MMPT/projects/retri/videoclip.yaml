@@ -4,7 +4,7 @@ task_group:
   pretrain:
     model:
       model_cls: MMFusionSeparate
-      mm_encoder_cls: 
+      mm_encoder_cls:
       video_encoder_cls: MMBertForEncoder
       text_encoder_cls: BertModel
       num_hidden_video_layers: 6

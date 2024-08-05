@@ -12,7 +12,7 @@ tar zxvf aclImdb_v1.tar.gz
 
 ### 2) Format data
 
-`IMDB` data has one data-sample in each file, below python code-snippet converts it one file for train and valid each for ease of processing.  
+`IMDB` data has one data-sample in each file, below python code-snippet converts it one file for train and valid each for ease of processing.
 ```python
 import argparse
 import os
@@ -72,7 +72,7 @@ done
 
 ```bash
 # Download fairseq dictionary.
-wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'  
+wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
 
 fairseq-preprocess \
     --only-source \

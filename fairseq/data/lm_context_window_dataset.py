@@ -3,9 +3,10 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+from typing import Dict
+
 import numpy as np
 import torch
-from typing import Dict
 
 from fairseq.data.monolingual_dataset import MonolingualDataset
 
@@ -68,9 +69,9 @@ class LMContextWindowDataset(FairseqDataset):
                 self.prev_tokens = self.prev_tokens[extra:]
             pads = np.full(self.context_window - len(self.prev_tokens), pad)
             new_toks[i] = np.concatenate([self.prev_tokens, toks[i].numpy(), pads])
-            new_tgt[
-                i, len(self.prev_tokens) : len(self.prev_tokens) + len(tgt[i])
-            ] = tgt[i]
+            new_tgt[i, len(self.prev_tokens) : len(self.prev_tokens) + len(tgt[i])] = (
+                tgt[i]
+            )
             start_idxs[i] = len(self.prev_tokens)
             lengths[i] += len(self.prev_tokens)
             self.prev_tokens = new_toks[i][new_toks[i] != pad][-self.context_window :]

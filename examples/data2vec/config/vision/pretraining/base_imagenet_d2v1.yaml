@@ -60,5 +60,5 @@ model:
   average_top_k_layers: 6
 
   loss_beta: 2.0
-  
+
   drop_path: 0.25

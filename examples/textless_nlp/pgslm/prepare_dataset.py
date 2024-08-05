@@ -3,22 +3,21 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-from multiprocessing import Pool
-
 import os
 from collections import defaultdict
 from itertools import starmap
+from multiprocessing import Pool
 
 import torch
+from data_utils import F0Stat, dump_speaker_f0_stat, load_f0
 from npy_append_array import NpyAppendArray
 from tqdm import tqdm
 
-from data_utils import dump_speaker_f0_stat, F0Stat, load_f0
 from fairseq.data.codedataset import (
-    ExpressiveCodeDataConfig,
-    parse_manifest,
     F0_FRAME_SPACE,
+    ExpressiveCodeDataConfig,
     align_f0_to_durations,
+    parse_manifest,
 )
 from fairseq.tasks.speech_ulm_task import UnitDictionary
 
