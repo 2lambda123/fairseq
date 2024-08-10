@@ -59,7 +59,7 @@ model:
   ema_anneal_end_step: 300000
   loss_beta: 4
   ema_transformer_layers_only: true
-  
+
   transformer:
     dropout: 0.1
     attention_dropout: 0.1

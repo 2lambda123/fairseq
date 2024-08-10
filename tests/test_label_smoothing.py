@@ -7,8 +7,9 @@ import argparse
 import copy
 import unittest
 
-import tests.utils as test_utils
 import torch
+
+import tests.utils as test_utils
 from fairseq.criterions.cross_entropy import CrossEntropyCriterion
 from fairseq.criterions.label_smoothed_cross_entropy import (
     LabelSmoothedCrossEntropyCriterion,

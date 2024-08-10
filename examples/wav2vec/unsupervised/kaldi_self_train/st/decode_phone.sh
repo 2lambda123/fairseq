@@ -23,7 +23,7 @@ if [ ! -z $dec_lmparam ]; then
   for x in $dec_splits; do
     mkdir -p $dec_data_dir/$x
     cp $data_dir/$x/{feats.scp,cmvn.scp,utt2spk,spk2utt} $dec_data_dir/$x/
-  
+
     tra=$out_dir/exp/$dec_exp/decode_${x}/scoring/${dec_lmparam}.tra
     cat $tra | utils/int2sym.pl -f 2- $data_dir/lang/words.txt | \
       sed 's:<UNK>::g' | sed 's:<SIL>::g' > $dec_data_dir/${x}/text

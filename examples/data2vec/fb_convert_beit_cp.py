@@ -5,19 +5,18 @@
 # LICENSE file in the root directory of this source tree.
 
 import argparse
+
 import torch
-
-from omegaconf import OmegaConf
-
-from fairseq.criterions.model_criterion import ModelCriterionConfig
-from fairseq.dataclass.configs import FairseqConfig
-
-from tasks import ImageClassificationConfig, ImagePretrainingConfig
 from models.data2vec_image_classification import (
     Data2VecImageClassificationConfig,
     Data2VecImageClassificationModel,
 )
 from models.data2vec_vision import Data2VecVisionConfig, Data2VecVisionModel
+from omegaconf import OmegaConf
+from tasks import ImageClassificationConfig, ImagePretrainingConfig
+
+from fairseq.criterions.model_criterion import ModelCriterionConfig
+from fairseq.dataclass.configs import FairseqConfig
 
 
 def get_parser():
@@ -43,9 +42,9 @@ def update_checkpoint(model_dict, prefix, is_nested):
     }
 
     starts_with = {
-        "patch_embed.proj": "model.patch_embed.conv"
-        if is_nested
-        else "patch_embed.conv",
+        "patch_embed.proj": (
+            "model.patch_embed.conv" if is_nested else "patch_embed.conv"
+        ),
         "lm_head": "final_proj",
         "fc_norm": "fc_norm",
         "head": "head",

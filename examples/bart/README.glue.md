@@ -81,7 +81,7 @@ bart = BARTModel.from_pretrained(
 
 label_fn = lambda label: bart.task.label_dictionary.string(
     [label + bart.task.label_dictionary.nspecial]
-)   
+)
 ncorrect, nsamples = 0, 0
 bart.cuda()
 bart.eval()

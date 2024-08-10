@@ -75,7 +75,7 @@ prepare_lid() {
 prepare_moses() {
   pushd $UTILS
   echo 'Cloning Moses github repository (for tokenization scripts)...'
-  git clone https://github.com/moses-smt/mosesdecoder.git  
+  git clone https://github.com/moses-smt/mosesdecoder.git
   popd
 }
 
@@ -123,7 +123,7 @@ prepare_ja() {
 
   prepare_ja_ted &
 
-  # ted data needs to 
+  # ted data needs to
 
   wait
 
@@ -171,7 +171,7 @@ prepare_iu() {
   OUTPUT_DIR=$TMP_DIR/iu
   mkdir -p $OUTPUT_DIR
   cd $OUTPUT_DIR
-  
+
   download_and_select nh "https://nrc-digital-repository.canada.ca/eng/view/dataset/?id=c7e34fa7-7629-43c2-bd6d-19b32bf64f60" "tar -zxvf Nunavut-Hansard-Inuktitut-English-Parallel-Corpus-3.0.1.tgz" iu Nunavut-Hansard-Inuktitut-English-Parallel-Corpus-3.0/NunavutHansard > /dev/null &
   download_and_select wikititles "http://data.statmt.org/wikititles/v2/wikititles-v2.iu-en.tsv.gz" "gunzip -f wikititles-v2.iu-en.tsv.gz" iu wikititles-v2.iu-en.tsv 1 2 &
 
@@ -303,7 +303,7 @@ prepare_cs() {
   then
           echo "Please download CZENG_CORPUS manually and place them at $CZENG_CORPUS. Exitting..."
           exit
-  fi  
+  fi
   cat $CZENG_CORPUS | sed '/^$/d' | cut -f5 > all.cs
   cat $CZENG_CORPUS | sed '/^$/d' | cut -f6 > all.en
 

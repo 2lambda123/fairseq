@@ -5,11 +5,11 @@
 # the root directory of this source tree. An additional grant of patent rights
 # can be found in the PATENTS file in the same directory.
 
-from collections import OrderedDict
 import itertools
 import logging
 import os
 import sys
+from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -22,14 +22,15 @@ from fairseq.data import AddTargetDataset, Dictionary, FileAudioDataset
 from fairseq.data.multi_corpus_dataset import MultiCorpusDataset
 from fairseq.data.text_compressor import TextCompressionLevel, TextCompressor
 from fairseq.dataclass import FairseqDataclass
+from fairseq.tasks.audio_finetuning import LabelEncoder, label_len_fn
 from fairseq.tasks.audio_pretraining import AudioPretrainingConfig, AudioPretrainingTask
-from fairseq.tasks.audio_finetuning import label_len_fn, LabelEncoder
 
 from .. import utils
 from ..logging import metrics
 from . import FairseqTask, register_task
 
 logger = logging.getLogger(__name__)
+
 
 @dataclass
 class AudioClassificationConfig(AudioPretrainingConfig):
@@ -246,6 +247,7 @@ class AudioClassificationTask(AudioPretrainingTask):
         metrics.log_scalar("_total", total)
 
         if total > 0:
+
             def _fn_accuracy(meters):
                 if meters["_total"].sum > 0:
                     return utils.item(meters["_correct"].sum / meters["_total"].sum)

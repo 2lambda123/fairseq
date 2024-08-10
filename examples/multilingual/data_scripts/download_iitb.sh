@@ -14,16 +14,16 @@ fi
 
 IITB=$WORKDIR_ROOT/IITB
 mkdir -p $IITB
-pushd $IITB 
+pushd $IITB
 
 wget http://www.cfilt.iitb.ac.in/~moses/iitb_en_hi_parallel/iitb_corpus_download/parallel.tgz
-tar -xvzf parallel.tgz 
+tar -xvzf parallel.tgz
 
 wget http://www.cfilt.iitb.ac.in/~moses/iitb_en_hi_parallel/iitb_corpus_download/dev_test.tgz
-tar -xvzf dev_test.tgz 
+tar -xvzf dev_test.tgz
 
 DESTDIR=${WORKDIR_ROOT}/ML50/raw/
- 
+
 cp parallel/IITB.en-hi.en $DESTDIR/train.hi_IN-en_XX.en_XX
 cp parallel/IITB.en-hi.hi $DESTDIR/train.hi_IN-en_XX.hi_IN
 

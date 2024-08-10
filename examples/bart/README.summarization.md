@@ -45,8 +45,8 @@ fairseq-preprocess \
 ### 4) Fine-tuning on CNN-DM summarization task:
 Example fine-tuning CNN-DM
 ```bash
-TOTAL_NUM_UPDATES=20000  
-WARMUP_UPDATES=500      
+TOTAL_NUM_UPDATES=20000
+WARMUP_UPDATES=500
 LR=3e-05
 MAX_TOKENS=2048
 UPDATE_FREQ=4

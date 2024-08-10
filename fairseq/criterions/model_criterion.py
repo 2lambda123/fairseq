@@ -10,11 +10,10 @@ from typing import Dict, List
 import torch
 
 from fairseq import utils
-from fairseq.logging import metrics
 from fairseq.criterions import FairseqCriterion, register_criterion
 from fairseq.dataclass import FairseqDataclass
+from fairseq.logging import metrics
 from fairseq.logging.meters import safe_round
-
 
 logger = logging.getLogger(__name__)
 
@@ -161,11 +160,11 @@ class ModelCriterion(FairseqCriterion):
 
             metrics.log_derived(
                 "accuracy",
-                lambda meters: safe_round(
-                    meters["_correct"].sum / meters["_total"].sum, 5
-                )
-                if meters["_total"].sum > 0
-                else float("nan"),
+                lambda meters: (
+                    safe_round(meters["_correct"].sum / meters["_total"].sum, 5)
+                    if meters["_total"].sum > 0
+                    else float("nan")
+                ),
             )
 
     def logging_outputs_can_be_summed(self) -> bool:

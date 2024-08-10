@@ -1,21 +1,22 @@
 import copy
-import torch
 import logging
 from argparse import Namespace
+
+import torch
 import yaml
-from fairseq import options
+
 from examples.speech_to_speech.benchmarking.core import (
-    Processing,
-    SpeechGeneration,
+    S2UT,
     Cascaded2StageS2ST,
     Cascaded3StageS2ST,
-    S2UT,
+    Processing,
+    SpeechGeneration,
 )
 from examples.speech_to_speech.benchmarking.data_utils import (
     load_dataset_npy,
     load_dataset_raw_to_waveforms,
 )
-
+from fairseq import options
 
 logging.basicConfig()
 logging.root.setLevel(logging.INFO)

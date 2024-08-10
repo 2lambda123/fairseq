@@ -8,8 +8,9 @@ from typing import Any, Optional
 
 import torch
 import torch.onnx.operators
+from torch import Tensor, nn
+
 from fairseq import utils
-from torch import nn, Tensor
 
 
 class SinusoidalPositionalEmbedding(nn.Module):
@@ -22,9 +23,13 @@ class SinusoidalPositionalEmbedding(nn.Module):
         super().__init__()
         self.embedding_dim = embedding_dim
         self.padding_idx = padding_idx if padding_idx is not None else 0
-        self.register_buffer("weights", SinusoidalPositionalEmbedding.get_embedding(
-            init_size, embedding_dim, padding_idx
-        ), persistent=False)
+        self.register_buffer(
+            "weights",
+            SinusoidalPositionalEmbedding.get_embedding(
+                init_size, embedding_dim, padding_idx
+            ),
+            persistent=False,
+        )
         self.max_positions = int(1e5)
         self.onnx_trace = False
 

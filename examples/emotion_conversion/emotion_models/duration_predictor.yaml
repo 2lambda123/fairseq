@@ -1,6 +1,6 @@
-train_tsv: "<your-processed-data>/denoising/emov/train.tsv" 
-train_km:  "<your-processed-data>/denoising/emov/train.km" 
-valid_tsv: "<your-processed-data>/denoising/emov/valid.tsv" 
+train_tsv: "<your-processed-data>/denoising/emov/train.tsv"
+train_km:  "<your-processed-data>/denoising/emov/train.km"
+valid_tsv: "<your-processed-data>/denoising/emov/valid.tsv"
 valid_km:  "<your-processed-data>/denoising/emov/valid.km"
 
 n_tokens: 200

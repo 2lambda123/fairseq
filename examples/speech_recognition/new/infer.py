@@ -8,21 +8,25 @@ import ast
 import hashlib
 import logging
 import os
+import re
 import shutil
 import sys
-import re
 from dataclasses import dataclass, field, is_dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import editdistance
+import hydra
 import torch
 import torch.distributed as dist
+from hydra.core.config_store import ConfigStore
+from omegaconf import OmegaConf
+
+from examples.speech_recognition.new.decoders.decoder import Decoder
 from examples.speech_recognition.new.decoders.decoder_config import (
     DecoderConfig,
     FlashlightDecoderConfig,
 )
-from examples.speech_recognition.new.decoders.decoder import Decoder
 from fairseq import checkpoint_utils, distributed_utils, progress_bar, tasks, utils
 from fairseq.data.data_utils import post_process
 from fairseq.dataclass.configs import (
@@ -36,10 +40,6 @@ from fairseq.dataclass.configs import (
 from fairseq.logging.meters import StopwatchMeter, TimeMeter
 from fairseq.logging.progress_bar import BaseProgressBar
 from fairseq.models.fairseq_model import FairseqModel
-from omegaconf import OmegaConf
-
-import hydra
-from hydra.core.config_store import ConfigStore
 
 logging.root.setLevel(logging.INFO)
 logging.basicConfig(level=logging.INFO)
@@ -108,7 +108,7 @@ class InferenceProcessor:
         if "adapter" in ckpt_obj:
             target_lang = self.cfg.dataset.gen_subset.split(":")[0]
             assert target_lang in ckpt_obj["adapter"]
-            
+
             logger.info(f">>> LOADING ADAPTER: {target_lang}")
             ft_obj = ckpt_obj["adapter"][target_lang]
             ft_model = ft_obj["model"]
@@ -124,7 +124,11 @@ class InferenceProcessor:
                         vv.copy_(ft_model[kk])
             self.task.load_state_dict(ft_obj["task_state"])
             # overwrite gen_subset with master config
-            self.cfg.dataset.gen_subset = re.sub('^[\w-]+:', saved_cfg['task']['multi_corpus_keys']+":", self.cfg.dataset.gen_subset)
+            self.cfg.dataset.gen_subset = re.sub(
+                "^[\w-]+:",
+                saved_cfg["task"]["multi_corpus_keys"] + ":",
+                self.cfg.dataset.gen_subset,
+            )
         self.models = models
         self.saved_cfg = saved_cfg
         self.tgt_dict = self.task.target_dictionary
@@ -475,9 +479,9 @@ def hydra_main(cfg: InferConfig) -> Union[float, Tuple[float, Optional[float]]]:
 
 def cli_main() -> None:
     try:
-        from hydra._internal.utils import (
+        from hydra._internal.utils import (  # pylint: disable=import-outside-toplevel
             get_args,
-        )  # pylint: disable=import-outside-toplevel
+        )
 
         cfg_name = get_args().config_name or "infer"
     except ImportError:

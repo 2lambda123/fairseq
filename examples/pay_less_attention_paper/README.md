@@ -33,7 +33,7 @@ Model | Description | Dataset | Download
 
 ### Memory-Efficient CUDA Kernels
 
-Since the PyTorch implementations of Light/Dynamic conv are quite memory intensive, we have developed CUDA kernels that implement the light and dynamic convolution operator in a memory-efficient and performant manner. For large sequence lengths, these kernels save about 50% memory compared to the PyTorch equivalent. 
+Since the PyTorch implementations of Light/Dynamic conv are quite memory intensive, we have developed CUDA kernels that implement the light and dynamic convolution operator in a memory-efficient and performant manner. For large sequence lengths, these kernels save about 50% memory compared to the PyTorch equivalent.
 
 To install the kernels, use the commands below. Once installed, they will automatically be used in place of the PyTorch implementations whenever a light or dynamic convolution is used.
 
@@ -106,7 +106,7 @@ Training and evaluating DynamicConv (without GLU) on a GPU:
 ```sh
 # Training
 SAVE="save/dynamic_conv_iwslt"
-mkdir -p $SAVE 
+mkdir -p $SAVE
 CUDA_VISIBLE_DEVICES=0 $(which fairseq-train) data-bin/iwslt14.tokenized.de-en \
     --clip-norm 0 --optimizer adam --lr 0.0005 \
     --source-lang de --target-lang en --max-tokens 4000 --no-progress-bar \
@@ -123,7 +123,7 @@ python scripts/average_checkpoints.py --inputs $SAVE \
     --num-epoch-checkpoints 10 --output "${SAVE}/checkpoint_last10_avg.pt"
 
 # Evaluation
-CUDA_VISIBLE_DEVICES=0 fairseq-generate data-bin/iwslt14.tokenized.de-en --path "${SAVE}/checkpoint_last10_avg.pt" --batch-size 128 --beam 4 --remove-bpe --lenpen 1 --gen-subset test --quiet 
+CUDA_VISIBLE_DEVICES=0 fairseq-generate data-bin/iwslt14.tokenized.de-en --path "${SAVE}/checkpoint_last10_avg.pt" --batch-size 128 --beam 4 --remove-bpe --lenpen 1 --gen-subset test --quiet
 ```
 
 ### WMT16 En-De

@@ -5,7 +5,7 @@ dataset:
   test_path: data/crosstask/crosstask_release/videos_val.csv
   train_csv_path: data/crosstask/crosstask_release/videos.csv
   val_path: data/crosstask/crosstask_release/videos_val.csv  # dummy
-  val_csv_path: data/crosstask/crosstask_release/videos_val.csv    
+  val_csv_path: data/crosstask/crosstask_release/videos_val.csv
   primary_path: data/crosstask/crosstask_release/tasks_primary.txt
   related_path: data/crosstask/crosstask_release/tasks_related.txt
   vfeat_dir: data/feat/feat_crosstask_s3d

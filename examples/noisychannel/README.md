@@ -46,7 +46,7 @@ fw=rerank_example/forward_de2en.pt
 
 # reranking with P(T|S) P(S|T) and P(T)
 python examples/noisychannel/rerank_tune.py $data_dir  --tune-param lenpen weight1 weight3  \
-    --lower-bound 0 0 0 --upper-bound 3 3 3 --data-dir-name $data_dir_name  \ 
+    --lower-bound 0 0 0 --upper-bound 3 3 3 --data-dir-name $data_dir_name  \
     --num-trials $num_trials  --source-lang de --target-lang en --gen-model $fw \
     -n $beam --batch-size $batch_size --score-model2 $fw --score-model1 $bw \
     --backwards1 --weight2 1 \
@@ -69,4 +69,3 @@ python examples/noisychannel/rerank.py $data_dir \
     -lm $lm  --lm-dict $lm_dict  --lm-name en_newscrawl --lm-bpe-code $lm_bpe_code \
     --model2-name $fw_name --model1-name $bw_name --gen-model-name $fw_name
 ```
-

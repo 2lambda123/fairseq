@@ -13,7 +13,7 @@ then
         exit
 fi
 
- 
+
 # put intermediate files
 TMP_DIR=$WORKDIR_ROOT/temp/af_xhv2
 # output {train,valid,test} files to dest
@@ -46,7 +46,7 @@ function download_opus(){
         mv bitext.$src ../$subset.$src-$tgt.$src
         mv bitext.$tgt ../$subset.$src-$tgt.$tgt
     fi
-    popd    
+    popd
 }
 
 function concat_subsets(){
@@ -78,14 +78,14 @@ function split_train_valid(){
     raw_src_train=raw_train.$src-$tgt.$src
     raw_tgt_train=raw_train.$src-$tgt.$tgt
 
-    shuf --random-source=<(get_seeded_random 43) $raw_src_train > shuffled.$src-$tgt.$src 
-    shuf --random-source=<(get_seeded_random 43) $raw_tgt_train > shuffled.$src-$tgt.$tgt 
+    shuf --random-source=<(get_seeded_random 43) $raw_src_train > shuffled.$src-$tgt.$src
+    shuf --random-source=<(get_seeded_random 43) $raw_tgt_train > shuffled.$src-$tgt.$tgt
 
     head -n 1500 shuffled.$src-$tgt.$src  > valid.$src-$tgt.$src
     head -n 1500 shuffled.$src-$tgt.$tgt > valid.$src-$tgt.$tgt
 
     tail +1501 shuffled.$src-$tgt.$src > train.$src-$tgt.$src
-    tail +1501 shuffled.$src-$tgt.$tgt > train.$src-$tgt.$tgt     
+    tail +1501 shuffled.$src-$tgt.$tgt > train.$src-$tgt.$tgt
 }
 
 function copy2dst(){
@@ -93,13 +93,13 @@ function copy2dst(){
     ltgt=$2
     src=${lsrc:0:2}
     tgt=${ltgt:0:2}
- 
 
-    cp valid.$src-$tgt.$src $DEST/valid.$lsrc-$ltgt.$lsrc 
-    cp valid.$src-$tgt.$tgt $DEST/valid.$lsrc-$ltgt.$ltgt 
 
-    cp train.$src-$tgt.$src $DEST/train.$lsrc-$ltgt.$lsrc 
-    cp train.$src-$tgt.$tgt $DEST/train.$lsrc-$ltgt.$ltgt        
+    cp valid.$src-$tgt.$src $DEST/valid.$lsrc-$ltgt.$lsrc
+    cp valid.$src-$tgt.$tgt $DEST/valid.$lsrc-$ltgt.$ltgt
+
+    cp train.$src-$tgt.$src $DEST/train.$lsrc-$ltgt.$lsrc
+    cp train.$src-$tgt.$tgt $DEST/train.$lsrc-$ltgt.$ltgt
 }
 
 
@@ -108,14 +108,14 @@ function copy2dst(){
 #for xh-en
 declare -A xh_en_urls
 xh_en_urls=(
-    [Tatoeba]=https://object.pouta.csc.fi/OPUS-Tatoeba/v20190709/tmx/en-xh.tmx.gz 
+    [Tatoeba]=https://object.pouta.csc.fi/OPUS-Tatoeba/v20190709/tmx/en-xh.tmx.gz
     [wikimedia]=https://object.pouta.csc.fi/OPUS-wikimedia/v20190628/tmx/en-xh.tmx.gz
     [memat]=https://object.pouta.csc.fi/OPUS-memat/v1/tmx/en-xh.tmx.gz
     [uedin]=https://object.pouta.csc.fi/OPUS-bible-uedin/v1/tmx/en-xh.tmx.gz
     [GNOME]=https://object.pouta.csc.fi/OPUS-GNOME/v1/tmx/en-xh.tmx.gz
     [XhosaNavy]=https://object.pouta.csc.fi/OPUS-XhosaNavy/v1/tmx/en-xh.tmx.gz
     [KDE4]=https://object.pouta.csc.fi/OPUS-KDE4/v2/tmx/en-xh.tmx.gz
-    [Ubuntu]=https://object.pouta.csc.fi/OPUS-Ubuntu/v14.10/tmx/en-xh.tmx.gz    
+    [Ubuntu]=https://object.pouta.csc.fi/OPUS-Ubuntu/v14.10/tmx/en-xh.tmx.gz
 )
 
 mkdir $TMP_DIR/xh-en
@@ -160,5 +160,3 @@ concat_subsets af en "${!af_en_urls[@]}"
 split_train_valid af en
 copy2dst af_ZA en_XX
 popd
-
-

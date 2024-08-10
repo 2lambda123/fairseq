@@ -59,5 +59,3 @@ We evaluate the model on a different benchmarks for the downstream tasks. The ev
 # Model Card Contact
 
 Please reach out to the authors at: [vineelkpratap@meta.com](mailto:vineelkpratap@meta.com) [androstj@meta.com](mailto:androstj@meta.com) [bshi@meta.com](mailto:bshi@meta.com) [michaelauli@meta.com](mailto:michaelauli@gmail.com)
-
-

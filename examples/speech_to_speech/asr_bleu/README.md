@@ -10,7 +10,7 @@ The high-level pipeline is simple by design: given a lang tag, script loads the 
 
 # Dependencies
 
-Please see `requirements.txt`. 
+Please see `requirements.txt`.
 
 # Usage examples
 

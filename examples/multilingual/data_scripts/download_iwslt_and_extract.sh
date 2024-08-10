@@ -14,7 +14,7 @@ then
         exit
 fi
 
- 
+
 
 data_root=${WORKDIR_ROOT}/iwsltv2
 DESTDIR=${WORKDIR_ROOT}/ML50/raw
@@ -27,7 +27,7 @@ download_path=${data_root}/downloads
 raw=${DESTDIR}
 tmp=${data_root}/tmp
 orig=${data_root}/orig
- 
+
 mkdir -p $download_path $orig $raw $tmp
 #######################
 download_iwslt(){
@@ -39,7 +39,7 @@ download_iwslt(){
     if [[ ! -f ${save_prefix}$src-$tgt.tgz ]]; then
         wget https://wit3.fbk.eu/archive/${iwslt_key}/texts/$src/$tgt/$src-$tgt.tgz -O ${save_prefix}$src-$tgt.tgz
         [ $? -eq 0 ] && return 0
-    fi         
+    fi
     popd
 }
 
@@ -47,15 +47,15 @@ extract_iwslt(){
     src=$1
     tgt=$2
     prefix=$3
-    pushd $orig                
+    pushd $orig
     tar zxvf ${download_path}/${prefix}$src-${tgt}.tgz
-    popd 
+    popd
 }
 
 generate_train(){
     lsrc=$1
     ltgt=$2
-    src=${lsrc:0:2}    
+    src=${lsrc:0:2}
     tgt=${ltgt:0:2}
     for ll in $lsrc $ltgt; do
         l=${ll:0:2}
@@ -79,7 +79,7 @@ generate_train(){
         > $f_raw
         [ $? -eq 0 ] && echo "extracted $f to $f_raw"
     done
-    return 0        
+    return 0
 }
 
 convert_valid_test(){
@@ -98,7 +98,7 @@ convert_valid_test(){
             > $f
             echo ""
         done
-    done    
+    done
 }
 
 generate_subset(){
@@ -111,22 +111,22 @@ generate_subset(){
     for ll in $lsrc $ltgt; do
         l=${ll:0:2}
         f=$tmp/$prefix.${src}-${tgt}.$l
-        if [[ -f $f ]]; then        
+        if [[ -f $f ]]; then
             cp $f $raw/$subset.${lsrc}-$ltgt.${ll}
         fi
-    done      
+    done
 }
 #################
 
 echo "downloading iwslt training and dev data"
-# using multilingual for it, nl 
+# using multilingual for it, nl
 download_iwslt "2017-01-trnmted" DeEnItNlRo DeEnItNlRo
 download_iwslt "2017-01-trnted" ar en
 download_iwslt "2017-01-trnted" en ar
 download_iwslt "2017-01-trnted" ko en
 download_iwslt "2017-01-trnted" en ko
-download_iwslt "2015-01" vi en   
-download_iwslt "2015-01" en vi   
+download_iwslt "2015-01" vi en
+download_iwslt "2015-01" en vi
 
 echo "donwloading iwslt test data"
 download_iwslt "2017-01-mted-test" it en "test."
@@ -147,8 +147,8 @@ extract_iwslt  ar en
 extract_iwslt  en ar
 extract_iwslt  ko en
 extract_iwslt  en ko
-extract_iwslt  vi en   
-extract_iwslt  en vi   
+extract_iwslt  vi en
+extract_iwslt  en vi
 
 
 echo "extracting iwslt test data"
@@ -161,7 +161,7 @@ done
 echo "convert dev and test data"
 for lang in $langs; do
     s_lang=${lang:0:2}
-    convert_valid_test $s_lang en  
+    convert_valid_test $s_lang en
     convert_valid_test en $s_lang
 done
 
@@ -210,7 +210,7 @@ for lang in $langs; do
         x_en_f2=$split.$lang-en_XX.${lang}
 
         en_x_f1=$split.en_XX-$lang.en_XX
-        en_x_f2=$split.en_XX-$lang.${lang}        
+        en_x_f2=$split.en_XX-$lang.${lang}
 
         if [ -f $en_x_f1 ] && [ ! -f $x_en_f1 ]; then
             echo "cp $en_x_f1 $x_en_f1"
@@ -219,7 +219,7 @@ for lang in $langs; do
         if [ -f $x_en_f2 ] && [ ! -f $x_en_f2 ]; then
             echo "cp $en_x_f2 $x_en_f2"
             cp $en_x_f2 $x_en_f2
-        fi        
+        fi
     done
 done
 popd

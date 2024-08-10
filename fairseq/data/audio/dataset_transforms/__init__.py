@@ -1,4 +1,5 @@
 import os
+
 from fairseq.data.audio import (
     AudioTransform,
     CompositeAudioTransform,

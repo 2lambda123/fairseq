@@ -8,6 +8,7 @@ import unittest
 
 import numpy as np
 import torch
+
 from examples.speech_recognition.data.collaters import Seq2SeqCollater
 
 
